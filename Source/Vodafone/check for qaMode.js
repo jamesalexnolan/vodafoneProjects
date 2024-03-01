@@ -1,4 +1,3 @@
-
 /*
 ---
 QAMODE CHECKER
@@ -17,8 +16,7 @@ window.onload = (event) => {
             //add banner to top of page
             const campaignName = ttMETA[0].CampaignName;
             var styleElement = document.createElement('style');
-            document.head.appendChild(styleElement);
-            styleElement.textContent += `body:before { content: "${campaignName}";             
+            styleElement.textContent += `body::before { content: "${campaignName}";
                 display: block;
                 line-height: 70px;
                 text-align: center;
@@ -26,6 +24,7 @@ window.onload = (event) => {
                 color: white;
                 font-size: larger;
                 font-weight: 800;}`;
+            document.head.appendChild(styleElement);
         }
     }
 }
