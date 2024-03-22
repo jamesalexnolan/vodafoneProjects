@@ -1,0 +1,132 @@
+<style>
+    .vt563_star-rating {
+        display: inline-block;
+        margin: 0 5px 0 5px;
+    }
+
+    .vt563_star {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        font-size: 18px;
+    }
+
+    .vt563_star[data-selected="true"],
+    .vt563_star[data-selected="true"]~.vt563_star {
+        color: white;
+    }
+
+    .vt_563_contents {
+        color: white;
+        justify-content: center;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .vt_563_banner_container {
+        background-color: #E60000;
+        max-height: 50px;
+    }
+
+    .vt563_img {
+        height: 20px;
+        margin: 0 5px 0 5px;
+    }
+
+    .vt563_rating {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /*Mobile*/
+    @media only screen and (max-width: 639px) {
+        .vt_563_banner_container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .vt_563_contents {
+            display: flex;
+            flex-wrap: wrap;
+            font-size: small !important;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+        }
+
+        .vt563_star {
+            font-size: unset;
+        }
+
+        .vt563_rating {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .vt563_img {
+            height: 15px;
+        }
+
+        .vt563_star {
+            font-size: unset;
+        }
+    }
+
+    /*Mobile -356px - x-small*/
+    @media only screen and (max-width: 360px) {
+        .vt_563_contents {
+            font-size: x-small !important;
+        }
+    }
+</style>
+
+<script>
+    //create banner 
+    var vt563_ribbon = '<div class="vt_563_banner_container">\
+        <div class="vt_563_contents">\
+            <p>\
+                Samsung Galaxy S24 Ultra\
+                </p>\
+                <span class="vt563_rating">\
+                    <img class="vt563_img" src="/cs/groups/public/documents/images/t3-logo.png">\
+                    <div class="vt563_star-rating">\
+                        <span class="vt563_star">&#9733;</span>\
+                        <span class="vt563_star">&#9733;</span>\
+                        <span class="vt563_star">&#9733;</span>\
+                        <span class="vt563_star">&#9733;</span>\
+                        <span class="vt563_star">&#9733;</span>\
+                    </div>\
+                </span>\
+                <p>\
+                Platinum Award Winner\
+            </p>\
+        </div>\
+    </div>'
+
+    //polling function 
+    var pxFuncFired = 0;
+    var pxInterval = setInterval(pxPollFunc, 100);
+
+    //polling function
+    function pxPollFunc() {
+        pxFuncFired += 1;
+
+        if (pxFuncFired >= 20) {
+            //try 20 times, if not found clear px func
+            clearInterval(pxInterval);
+        }
+
+        //select banner 
+        var vt563_hero_banner = document.querySelector('.carousel')
+
+        if (vt563_hero_banner) {
+            //clear polling when found
+            clearInterval(pxInterval);
+            //insert banner
+            vt563_hero_banner.insertAdjacentHTML("afterbegin", vt563_ribbon)
+        }
+    }
+</script>
