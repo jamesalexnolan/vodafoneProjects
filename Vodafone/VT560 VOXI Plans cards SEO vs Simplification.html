@@ -92,7 +92,7 @@
 </script>
 
 
-//VARIANT 2
+<!-- //VARIANT 2
 <style>
     /* rolling subscription text */
     #plans-offers>div[class*='SimpleGridstyle__SimpleGrid']>div>div>div:nth-child(2)>div>div>div>div:nth-child(2) {
@@ -117,29 +117,31 @@
             let vt560_oldValue = mutation.oldValue;
             let vt560_newValue = mutation.target.textContent;
             if (vt560_oldValue !== vt560_newValue) {
-                ////POLLING FUNCTION////
-                //polling function config
-                var vt560_pxFuncFired = 0;
-                var vt560_pxInterval = setInterval(vt560_pxPollFunc, 100);
+                if (window.location.href.indexOf('voxi.co.uk/sim-only-plans') > -1) {
+                    ////POLLING FUNCTION////
+                    //polling function config
+                    var vt560_pxFuncFired = 0;
+                    var vt560_pxInterval = setInterval(vt560_pxPollFunc, 100);
 
-                //polling function
-                function vt560_pxPollFunc() {
-                    vt560_pxFuncFired += 1;
+                    //polling function
+                    function vt560_pxPollFunc() {
+                        vt560_pxFuncFired += 1;
 
-                    if (vt560_pxFuncFired >= 1) {
-                        //try 20 times, if not found clear px func
-                        clearInterval(vt560_pxInterval);
-                        vt560_observer.disconnect()
-                    }
+                        if (vt560_pxFuncFired >= 2) {
+                            //try 20 times, if not found clear px func
+                            clearInterval(vt560_pxInterval);
+                            vt560_observer.disconnect()
+                        }
 
-                    //target element 
-                    var vt560_element = document.querySelectorAll("#plans-offers > [class*='SimpleGridstyle__SimpleGrid'] > div> div > div:nth-child(2) > div > div > div > div:nth-child(1) > p:nth-child(3)")
+                        //target element 
+                        var vt560_element = document.querySelectorAll("#plans-offers > [class*='SimpleGridstyle__SimpleGrid'] > div> div > div:nth-child(2) > div > div > div > div:nth-child(1) > p:nth-child(3)")
 
-                    if (vt560_element) {
-                        //clear polling when found
-                        clearInterval(vt560_pxInterval);
-                        handleVT560Changes()
-                        vt560_observer.disconnect()
+                        if (vt560_element) {
+                            //clear polling when found
+                            clearInterval(vt560_pxInterval);
+                            handleVT560Changes()
+                            vt560_observer.disconnect()
+                        }
                     }
                 }
             }
@@ -150,7 +152,8 @@
         characterDataOldValue: true,
         subtree: true,
         childList: true,
-        characterData: true
+        characterData: true,
+        //attributes : true
     });
 
     function handleVT560Changes() {
@@ -170,9 +173,15 @@
                 )
 
             //add heading text
-            if (document.querySelector("#root > div > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(5) > div > p ")) {
-                document.querySelector("#root > div > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(5) > div > p ").innerHTML = 'All our plans come as a rolling 30-day subscription, cancel anytime.'
-                document.querySelector("#root > div > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(5) > div ").style.marginBottom = '25px'
+            if (document.querySelector("#root > div > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(5) > div")) {
+                if (document.querySelector("#root > div > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(5) > div").children.length === 1 && document.querySelector("#root > div > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(5) > div > p ")) {
+                    document.querySelector("#root > div > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(5) > div > p ").innerHTML = 'All our plans come as a rolling 30-day subscription, cancel anytime.'
+                    document.querySelector("#root > div > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(5) > div ").style.marginBottom = '15px'
+                } else if (document.querySelector("#root > div > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(5) > div").children.length === 2) {
+                    var vt560_shout_out = '<p size="1" data-component-name="Paragraph" class="Paragraphstyle__Paragraph-sc-ejay05-0 dowUWz" style="padding-top: 25px; padding-bottom: 15px;">All our plans come as a rolling 30-day subscription, cancel anytime.</p>'
+                    var vt560_shout_out_container = document.querySelector("#root > div > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(5) > div")
+                    vt560_shout_out_container.insertAdjacentHTML("beforeend", vt560_shout_out);
+                }
             }
         }
     }
@@ -187,4 +196,4 @@
             characterData: true
         });
     })
-</script>
+</script> -->

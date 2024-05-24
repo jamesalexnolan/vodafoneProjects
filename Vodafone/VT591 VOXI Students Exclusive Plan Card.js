@@ -36,7 +36,7 @@ function pxPollFunc() {
                         }
 
                         //target element 
-                        vt591_popout_text = document.querySelectorAll('[class*="Headingstyle__Heading-sc"]')[48]
+                        vt591_popout_text = document.querySelectorAll('[class*="Headingstyle__Heading-sc"]')[47]
 
                         if (vt591_popout_text) {
                             //clear polling when found
@@ -60,14 +60,19 @@ function pxPollFunc() {
 
 function vt591_landing_page_changes() {
     //replace header text 
-    document.querySelectorAll('[class*="Headingstyle__Heading-sc"]')[1].innerHTML = 'Students get 3x data on £10 and 3x data on £15 plans, plus <span class="_3LnZ6">first month FREE on any plan!</span>'
+    document.querySelectorAll('[class*="Headingstyle__Heading-sc"]')[1].innerHTML = 'Students get 3x data on £10 and 3x data on £15 plans, plus <span class="sc-nFrIV fvCIvJ">first month FREE on any plan!</span>'
 
     //replace flag text 
     //document.querySelectorAll('[class*="Paragraphstyle__Paragraph-sc"]')[7].innerText = '3x Data'
     document.querySelectorAll('[class*="SimpleGridstyle__SimpleGridColumn-sc"] > div > p')[0].innerText = '3x Data'
 
     //replace card text
-    document.querySelectorAll('[class*="Headingstyle__Heading-sc"]')[6].innerText = '45GB'
+    //account for countdown
+    if (document.querySelector("#root > div > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(5) > div").children.length === 2) {
+        document.querySelectorAll('[class*="Headingstyle__Heading-sc"]')[14].innerText = '45GB'
+    } else if (document.querySelector("#root > div > div:nth-child(3) > div:nth-child(2) > div > div:nth-child(5) > div").children.length === 1) {
+        document.querySelectorAll('[class*="Headingstyle__Heading-sc"]')[6].innerText = '45GB'
+    }
 
     //change cta href
     document.querySelector('[aria-label="Choose this plan"]').addEventListener('click', function () {

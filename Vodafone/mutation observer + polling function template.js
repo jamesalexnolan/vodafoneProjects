@@ -1,4 +1,4 @@
-////MUTATION OBSERVER////
+////MUTATION OBSERVER - BODY////
 let vtxxx_observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
         let vtxxx_oldValue = mutation.oldValue;
@@ -10,11 +10,32 @@ let vtxxx_observer = new MutationObserver((mutations) => {
 });
 
 vtxxx_observer.observe(document.body, {
-    characterDataOldValue: true,
+    //characterDataOldValue: true,
     subtree: true,
     childList: true,
-    characterData: true
+    //characterData: true
+    attributes: true
 });
+
+////MUTATION OBSERVER - PARENT ELEMENT////
+//mutation observer 
+const vtxxxObserver = new MutationObserver((mutationsList, vtxxxObserver) => {
+    //check for mutations
+    for (const mutation of mutationsList) {
+        if (mutation.target.matches('')) {
+            //CHANGES HERE
+        }
+    }
+});
+
+//define the configuration for the MutationObserver
+const vtxxxObserverConfig = {
+    childList: true,
+    subtree: true,
+};
+
+//start observing changes
+vtxxxObserver.observe(document.body, vtxxxObserverConfig);
 
 ////POLLING FUNCTION////
 //polling function config
