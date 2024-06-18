@@ -1,4 +1,4 @@
-//EXCLUDE CROSS SELL
+//V1
 <style>
     /*YOU MIGHT LIKE*/
     .vt629-p1-container {
@@ -338,7 +338,6 @@
     }
 </style>
 
-//EXCLUDE CROSS SELL AUDIENCE
 <script>
     ////POLLING FUNCTION////
     //polling function config
@@ -570,7 +569,7 @@
     }
 </script>
 
-//INCLUDE CROSS SELL
+//V2 
 <style>
     /*YOU MIGHT LIKE*/
     .vt629-p1-container {
@@ -613,16 +612,16 @@
     }
 
     /*img adjustments*/
-    .vt629-p1-1-img,
-    .vt629-p1-2-img,
-    .vt629-p1-3-img {
+    .vt629-p1-1-img>div,
+    .vt629-p1-2-img>div,
+    .vt629-p1-3-img>div {
         position: initial;
         background-repeat: no-repeat;
         padding: 5px;
         border-radius: 5px;
     }
 
-    .vt629-p1-1-img {
+    .vt629-p1-1-img>div {
         background-image: url("https://www.vodafone.co.uk/cs/groups/public/documents/images/vfcon127897.jpg");
         background-size: 400px;
         width: 450px;
@@ -630,8 +629,8 @@
         background-position-y: 2px;
     }
 
-    .vt629-p1-2-img,
-    .vt629-p1-3-img {
+    .vt629-p1-2-img>div,
+    .vt629-p1-3-img>div {
         background-size: 550px;
         width: 250px;
         height: 250px;
@@ -685,12 +684,6 @@
     .vt629-p1-1-text>a {
         display: flex;
         align-items: center;
-    }
-
-    .vt629-p1-1-text>a>svg,
-    .vt629-p1-2-text>a>svg,
-    .vt629-p1-3-text>a>svg {
-        margin-left: 5px;
     }
 
     /*MOBILE*/
@@ -774,16 +767,16 @@
     }
 
     /*img adjustments*/
-    .vt629-p2-1-img,
-    .vt629-p2-2-img,
-    .vt629-p2-3-img {
+    .vt629-p2-1-img>div,
+    .vt629-p2-2-img>div,
+    .vt629-p2-3-img>div {
         position: initial;
         background-repeat: no-repeat;
         padding: 5px;
         border-radius: 5px;
     }
 
-    .vt629-p2-1-img {
+    .vt629-p2-1-img>div {
         background-image: url("https://www.vodafone.co.uk/cs/groups/public/documents/images/vfcon127897.jpg");
         background-size: 400px;
         width: 450px;
@@ -791,8 +784,8 @@
         background-position-y: -8px;
     }
 
-    .vt629-p2-2-img,
-    .vt629-p2-3-img {
+    .vt629-p2-2-img>div,
+    .vt629-p2-3-img>div {
         background-size: 550px;
         width: 250px;
         height: 250px;
@@ -844,12 +837,6 @@
         align-items: center;
     }
 
-    .vt629-p2-1-text>a>svg,
-    .vt629-p2-2-text>a>svg,
-    .vt629-p2-3-text>a>svg {
-        margin-left: 5px;
-    }
-
     /*MOBILE*/
     @media only screen and (max-width: 639px) {
         .vt629-p2-container {
@@ -877,14 +864,14 @@
             justify-content: center;
         }
 
-        .vt629-p2-2-img,
-        .vt629-p2-3-img {
+        .vt629-p2-2-img>div,
+        .vt629-p2-3-img>div {
             background-size: 450px;
             background-position-y: 20px;
             background-position-x: center;
         }
 
-        .vt629-p2-1-img {
+        .vt629-p2-1-img>div {
             background-size: 550px;
             width: 250px;
         }
@@ -910,7 +897,6 @@
     }
 </style>
 
-//INCLUDE CROSS SELL AUDIENCE
 <script>
     ////POLLING FUNCTION////
     //polling function config
@@ -928,214 +914,139 @@
 
         //target element 
         var vt629_p1Container = document.querySelector('.section--gutter')
-
         var vt629_p1Text = document.querySelectorAll(".promo-card--inner>div:nth-child(3)>a>div>div:nth-child(2)>div")[1].innerText
 
         if (vt629_p1Container && document.querySelectorAll(".background__image")[7] && vt629_p1Text != '') {
             //clear polling when found
             clearInterval(vt629_pxInterval);
-            setTimeout(function () {
-                vt629_p1Changes()
-            }, 500);
+            //ACTIONS HERE 
+            vt629_p1Changes()
         }
 
         //vt629 changes 
         function vt629_p1Changes() {
-            //capture original data to populate new element 
-            /////FIRST ELEMENT/////
+            //capture original p1 data 
+            //first element//
             //header
-            if (window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(1) > a h3.block__text--heading'), ':after')) {
-                var vt629_header_1_text = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(1) > a h3.block__text--heading'), ':after').content
-            } else {
-                var vt629_header_1_text = document.querySelectorAll("[class*=block__text--heading]")[0].textContent
-                var vt629_header_1_text = vt629_header_1_text.replace(/\n/g, '')
-            }
-
+            var vt629_header_1_text = document.querySelectorAll("[class*=block__text--heading]")[0].textContent
+            var vt629_header_1_text = vt629_header_1_text.replace(/\n/g, '')
             //text
-            if (window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(1) > a p.block__text--shout'), ':after')) {
-                var vt629_header_1_text = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(1) > a p.block__text--shout'), ':after').content
-            } else {
-                var vt629_text_1 = document.querySelectorAll("[class*=block__text--shout]")[0].textContent
-                var vt629_text_1 = vt629_text_1.replace(/\n/g, '')
-            }
-
+            var vt629_text_1 = document.querySelectorAll("[class*=block__text--shout]")[0].textContent
+            var vt629_text_1 = vt629_text_1.replace(/\n/g, '')
             //CTA 
             //text
             var vt629_cta_text_1 = document.querySelector(".promo-card--inner>div:nth-child(1)>a>div>div:nth-child(2)>div").innerText
             //href
             var vt629_cta_1_href = document.querySelector(".promo-card--inner>div>a").getAttribute('href')
-
             //IMG
-            var vt629_img_1 = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(1) > a > div.background__image')).backgroundImage
-            /////FIRST ELEMENT END/////
+            var vt629_img_1 = document.querySelectorAll(".background__image")[1].outerHTML
 
-            /////SECOND ELEMENT/////
+            //second element//
             //header
-            if (window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(2) > a h3.block__text--heading'), ':after')) {
-                var vt629_header_2_text = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(2) > a h3.block__text--heading'), ':after').content
-            } else {
-                var vt629_header_2_text = document.querySelectorAll("[class*=block__text--heading]")[1].textContent
-                var vt629_header_2_text = vt629_header_2_text.replace(/\n/g, '')
-            }
-
+            var vt629_header_2_text = document.querySelectorAll("[class*=block__text--heading]")[1].textContent
+            var vt629_header_2_text = vt629_header_2_text.replace(/\n/g, '')
             //text
-            if (window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(2) > a p.block__text--shout'), ':after')) {
-                var vt629_header_1_text = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(2) > a p.block__text--shout'), ':after').content
-            } else {
-                var vt629_text_2 = document.querySelectorAll("[class*=block__text--shout]")[1].textContent
-                var vt629_text_2 = vt629_text_2.replace(/\n/g, '')
-            }
-
+            var vt629_text_2 = document.querySelectorAll("[class*=block__text--shout]")[1].textContent
+            var vt629_text_2 = vt629_text_2.replace(/\n/g, '')
             //CTA 
             //text
             var vt629_cta_text_2 = document.querySelector(".promo-card--inner>div:nth-child(2)>a>div>div:nth-child(2)>div").innerText
             //href
             var vt629_cta_2_href = document.querySelector(".promo-card--inner>div:nth-child(2)>a").getAttribute('href')
-
             //IMG
-            var vt629_img_2 = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(2) > a > div.background__image')).backgroundImage
-            /////SECOND ELEMENT END//////
+            var vt629_img_2 = document.querySelectorAll(".background__image")[2].outerHTML
 
-            /////THIRD ELEMENT/////
+            //third element//
             //header
-            if (window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(3) > a h3.block__text--heading'), ':after')) {
-                var vt629_header_2_text = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(3) > a h3.block__text--heading'), ':after').content
-            } else {
-                var vt629_header_3_text = document.querySelectorAll("[class*=block__text--heading]")[2].textContent
-                var vt629_header_3_text = vt629_header_3_text.replace(/\n/g, '')
-            }
-
+            var vt629_header_3_text = document.querySelectorAll("[class*=block__text--heading]")[2].textContent
+            var vt629_header_3_text = vt629_header_3_text.replace(/\n/g, '')
             //text
-            if (window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(3) > a p.block__text--shout'), ':after')) {
-                var vt629_header_1_text = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(3) > a p.block__text--shout'), ':after').content
-            } else {
-                var vt629_text_3 = document.querySelectorAll("[class*=block__text--shout]")[2].textContent
-                var vt629_text_3 = vt629_text_3.replace(/\n/g, '')
-            }
-
+            var vt629_text_3 = document.querySelectorAll("[class*=block__text--shout]")[2].textContent
+            var vt629_text_3 = vt629_text_3.replace(/\n/g, '')
             //CTA 
             //text
             var vt629_cta_text_3 = document.querySelector(".promo-card--inner>div:nth-child(3)>a>div>div:nth-child(2)>div").innerText
             //href
             var vt629_cta_3_href = document.querySelector(".promo-card--inner>div:nth-child(3)>a").getAttribute('href')
-
             //IMG
-            var vt629_img_3 = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(3) .spring .section .grid.promo-card .promo-card--inner div:nth-child(3) > a > div.background__image')).backgroundImage
-            /////THIRD ELEMENT END/////
+            var vt629_img_3 = document.querySelectorAll(".background__image")[3].outerHTML
 
-            //capture original data to populate new element 
-            /////FIRST ELEMENT/////
+            //capture original p2 data 
+            //first element//
             //header
-            if (window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(1) > a h3.block__text--heading'), ':after')) {
-                var vt629_header_1_text_2 = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(1) > a h3.block__text--heading'), ':after').content
-            } else {
-                var vt629_header_1_text_2 = document.querySelectorAll("[class*=block__text--heading]")[3].textContent
-                var vt629_header_1_text_2 = vt629_header_1_text_2.replace(/\n/g, '')
-            }
-
+            var vt629_header_1_text_2 = document.querySelectorAll("[class*=block__text--heading]")[3].textContent
+            var vt629_header_1_text_2 = vt629_header_1_text_2.replace(/\n/g, '')
             //text
-            if (window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(1) > a p.block__text--shout'), ':after')) {
-                var vt629_text_1_2 = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(1) > a p.block__text--shout'), ':after').content
-            } else {
-                var vt629_text_1_2 = document.querySelectorAll("[class*=block__text--shout]")[3].textContent
-                var vt629_text_1_2 = vt629_text_1_2.replace(/\n/g, '')
-            }
-
+            var vt629_text_1_2 = document.querySelectorAll("[class*=block__text--shout]")[3].textContent
+            var vt629_text_1_2 = vt629_text_1_2.replace(/\n/g, '')
             //CTA 
             //text
             var vt629_cta_text_1_2 = document.querySelectorAll(".promo-card--inner>div:nth-child(1)>a>div>div:nth-child(2)>div")[1].innerText
             //href
             var vt629_cta_1_href_2 = document.querySelectorAll(".promo-card--inner>div>a")[1].getAttribute('href')
-
             //IMG
-            var vt629_img_1_2 = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(1) > a > div.background__image')).backgroundImage
-            /////FIRST ELEMENT END/////
+            var vt629_img_1_2 = document.querySelectorAll(".background__image")[5].outerHTML
 
-            /////SECOND ELEMENT/////
+            //second element//
             //header
-            if (window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(2) > a h3.block__text--heading'), ':after')) {
-                var vt629_header_2_text_2 = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(2) > a h3.block__text--heading'), ':after').content
-            } else {
-                var vt629_header_2_text_2 = document.querySelectorAll("[class*=block__text--heading]")[3].textContent
-                var vt629_header_2_text_2 = vt629_header_2_text_2.replace(/\n/g, '')
-            }
-
+            var vt629_header_2_text_2 = document.querySelectorAll("[class*=block__text--heading]")[4].textContent
+            var vt629_header_2_text_2 = vt629_header_2_text_2.replace(/\n/g, '')
             //text
-            if (window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(2) > a p.block__text--shout'), ':after')) {
-                var vt629_text_2_2 = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(2) > a p.block__text--shout'), ':after').content
-            } else {
-                var vt629_text_2_2 = document.querySelectorAll("[class*=block__text--shout]")[3].textContent
-                var vt629_text_2_2 = vt629_text_2_2.replace(/\n/g, '')
-            }
-
+            var vt629_text_2_2 = document.querySelectorAll("[class*=block__text--shout]")[4].textContent
+            var vt629_text_2_2 = vt629_text_2_2.replace(/\n/g, '')
             //CTA 
             //text
             var vt629_cta_text_2_2 = document.querySelectorAll(".promo-card--inner>div:nth-child(2)>a>div>div:nth-child(2)>div")[1].innerText
             //href
             var vt629_cta_2_href_2 = document.querySelectorAll(".promo-card--inner>div:nth-child(2)>a")[1].getAttribute('href')
-
             //IMG
-            var vt629_img_2_2 = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(2) > a > div.background__image')).backgroundImage
+            var vt629_img_2_2 = document.querySelectorAll(".background__image")[6].outerHTML
 
-            /////SECOND ELEMENT END/////
-
-            /////THIRD ELEMENT/////
+            //third element//
             //header
-            if (window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(3) > a h3.block__text--heading'), ':after')) {
-                var vt629_header_3_text_2 = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(3) > a h3.block__text--heading'), ':after').content
-            } else {
-                var vt629_header_3_text_2 = document.querySelectorAll("[class*=block__text--heading]")[3].textContent
-                var vt629_header_3_text_2 = vt629_header_3_text_2.replace(/\n/g, '')
-            }
-
+            var vt629_header_3_text_2 = document.querySelectorAll("[class*=block__text--heading]")[5].textContent
+            var vt629_header_3_text_2 = vt629_header_3_text_2.replace(/\n/g, '')
             //text
-            if (window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(3) > a p.block__text--shout'), ':after')) {
-                var vt629_text_3_2 = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(3) > a p.block__text--shout'), ':after').content
-            } else {
-                var vt629_text_3_2 = document.querySelectorAll("[class*=block__text--shout]")[3].textContent
-                var vt629_text_3_2 = vt629_text_3_2.replace(/\n/g, '')
-            }
-
+            var vt629_text_3_2 = document.querySelectorAll("[class*=block__text--shout]")[5].textContent
+            var vt629_text_3_2 = vt629_text_3_2.replace(/\n/g, '')
             //CTA 
             //text
             var vt629_cta_text_3_2 = document.querySelectorAll(".promo-card--inner>div:nth-child(3)>a>div>div:nth-child(2)>div")[1].innerText
             //href
             var vt629_cta_3_href_2 = document.querySelectorAll(".promo-card--inner>div:nth-child(3)>a")[1].getAttribute('href')
-
             //IMG
-            var vt629_img_3_2 = window.getComputedStyle(document.querySelector('div#content > div:nth-of-type(6) .spring .section .grid.promo-card .promo-card--inner div:nth-child(3) > a > div.background__image')).backgroundImage
-            /////THIRD ELEMENT END/////
+            var vt629_img_3_2 = document.querySelectorAll(".background__image")[7].outerHTML
 
-            //create new element
+            //create new p1 element
             var vt629_p1_elem = '<div class="vt629-p1-container">\
                                     <div class="vt629-p1-1-element">\
                                         <div class="vt629-p1-1-content">\
-                                            <div class="vt629-p1-1-img" style="background-image:'+ vt629_img_1 + '"></div>\
+                                            <div class="vt629-p1-1-img">'+ vt629_img_1 + '</div>\
                                             <div class="vt629-p1-1-text">\
                                                 <h3>'+ vt629_header_1_text + '</h3>\
                                                 <p>'+ vt629_text_1 + '</p>\
-                                                <a href="'+ vt629_cta_1_href + '">' + vt629_cta_text_1 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" style=""><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"></path></svg></a>\
+                                                <a href="'+ vt629_cta_1_href + '">' + vt629_cta_text_1 + '</a>\
                                             </div>\
                                         </div>\
                                     </div>\
                                     <div class="vt610-right-elems">\
                                         <div class="vt629-p1-2-element">\
                                             <div class="vt629-p1-2-content">\
-                                                <div class="vt629-p1-2-img" style="background-image:'+ vt629_img_2 + '"></div>\
+                                                <div class="vt629-p1-2-img">'+ vt629_img_2 + '</div>\
                                                 <div class="vt629-p1-2-text">\
                                                     <h3>'+ vt629_header_2_text + '</h3>\
                                                     <p>'+ vt629_text_2 + '</p>\
-                                                    <a href="'+ vt629_cta_2_href + '">' + vt629_cta_text_2 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" style=""><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"></path></svg></a>\
+                                                    <a href="'+ vt629_cta_2_href + '">' + vt629_cta_text_2 + '</a>\
                                                 </div>\
                                             </div>\
                                         </div>\
                                         <div class="vt629-p1-3-element">\
                                             <div class="vt629-p1-3-content">\
-                                                <div class="vt629-p1-3-img" style="background-image:'+ vt629_img_3 + '"></div>\
+                                                <div class="vt629-p1-3-img">'+ vt629_img_3 + '</div>\
                                                 <div class="vt629-p1-3-text">\
                                                     <h3>'+ vt629_header_3_text + '</h3>\
                                                     <p>'+ vt629_text_3 + '</p>\
-                                                    <a href="'+ vt629_cta_3_href + '">' + vt629_cta_text_3 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" style=""><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"></path></svg></a>\
+                                                    <a href="'+ vt629_cta_3_href + '">' + vt629_cta_text_3 + '</a>\
                                                 </div>\
                                             </div>\
                                         </div>\
@@ -1150,32 +1061,32 @@
             var vt629_p2_elem = '<div class="vt629-p2-container">\
                                     <div class="vt629-p2-1-element">\
                                         <div class="vt629-p2-1-content">\
-                                            <div class="vt629-p2-1-img" style="background-image:'+ vt629_img_1_2 + '"></div>\
+                                            <div class="vt629-p2-1-img">'+ vt629_img_1_2 + '</div>\
                                             <div class="vt629-p2-1-text">\
                                                 <h3>'+ vt629_header_1_text_2 + '</h3>\
                                                 <p>'+ vt629_text_1_2 + '</p>\
-                                                <a href="'+ vt629_cta_1_href_2 + '">' + vt629_cta_text_1_2 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" style=""><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"></path></svg></a>\
+                                                <a href="'+ vt629_cta_1_href_2 + '">' + vt629_cta_text_1_2 + '</a>\
                                             </div>\
                                         </div>\
                                     </div>\
                                     <div class="vt610-right-elems">\
                                         <div class="vt629-p2-2-element">\
                                             <div class="vt629-p2-2-content">\
-                                                <div class="vt629-p2-2-img" style="background-image:'+ vt629_img_2_2 + '"></div>\
+                                                <div class="vt629-p2-2-img">'+ vt629_img_2_2 + '</div>\
                                                 <div class="vt629-p2-2-text">\
                                                     <h3>'+ vt629_header_2_text_2 + '</h3>\
                                                     <p>'+ vt629_text_2_2 + '</p>\
-                                                    <a href="'+ vt629_cta_2_href_2 + '">' + vt629_cta_text_2_2 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" style=""><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"></path></svg></a>\
+                                                    <a href="'+ vt629_cta_2_href_2 + '">' + vt629_cta_text_2_2 + '</a>\
                                                 </div>\
                                             </div>\
                                         </div>\
                                         <div class="vt629-p2-3-element">\
                                             <div class="vt629-p2-3-content">\
-                                                <div class="vt629-p2-3-img" style="background-image:'+ vt629_img_3_2 + '"></div>\
+                                                <div class="vt629-p2-3-img">'+ vt629_img_3_2 + '</div>\
                                                 <div class="vt629-p2-3-text">\
                                                     <h3>'+ vt629_header_3_text_2 + '</h3>\
                                                     <p>'+ vt629_text_3_2 + '</p>\
-                                                    <a href="'+ vt629_cta_3_href_2 + '">' + vt629_cta_text_3_2 + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" style=""><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"></path></svg></a>\
+                                                    <a href="'+ vt629_cta_3_href_2 + '">' + vt629_cta_text_3_2 + '</a>\
                                                 </div>\
                                             </div>\
                                         </div>\

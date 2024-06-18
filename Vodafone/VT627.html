@@ -27,32 +27,6 @@
 </style>
 
 <script>
-    // ////POLLING FUNCTION////
-    // //polling function config
-    // var vt627_pxFuncFired = 0;
-    // var vt627_pxInterval = setInterval(vt627_pxPollFunc, 100);
-
-    // //polling function
-    // function vt627_pxPollFunc() {
-    //     vt627_pxFuncFired += 1;
-
-    //     if (vt627_pxFuncFired >= 20) {
-    //         //try 20 times, if not found clear px func
-    //         clearInterval(vt627_pxInterval);
-    //     }
-
-    //     //target element 
-    //     var vt627_targetElem = document.querySelector('[data-selector="ils-options"]')
-    //     var vt627_targetElemFailSafe = document.querySelector("#ILS-tab > div > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > span > span > span > svg")
-
-    //     if (vt627_targetElem && vt627_targetElemFailSafe) {
-    //         //clear polling when found
-    //         clearInterval(vt627_pxInterval);
-    //         //ACTIONS HERE 
-    //         vt627_clonedElem()
-    //     }
-    // }
-
     ////MUTATION OBSERVER////
     let vt627_observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
@@ -62,7 +36,7 @@
                 //changes here 
                 //target element 
                 var vt627_targetElem = document.querySelector('[data-selector="ils-options"]')
-                var vt627_targetElemFailSafe = document.querySelector("#ILS-tab > div > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > span > span > span > svg")
+                var vt627_targetElemFailSafe = document.querySelector("#ILS-tab > div > div > div > div:nth-child(2) > div:nth-child(6) > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > span > span > span > svg")
 
                 if (vt627_targetElem && vt627_targetElemFailSafe) {
                     if (!document.querySelector('[id="vt627_planCard"]')) {
@@ -83,7 +57,7 @@
 
     function vt627_clonedElem() {
         //clone element 
-        var vt627_planCard = document.querySelectorAll('[data-selector="plan-card"]')[0];
+        var vt627_planCard = document.querySelectorAll('[data-selector="plan-card"]')[document.querySelectorAll('[data-selector="plan-card"]').length- 1];
         var vt627_clonedElem = vt627_planCard.cloneNode(true);
         vt627_clonedElem.id = 'vt627_planCard';
         //insert element
@@ -112,7 +86,37 @@
         //button re-direct
         var vt627_CTA = document.querySelector("#vt627_planCard > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div:nth-child(2)")
         vt627_CTA.addEventListener('click', function () {
-            window.location = 'https://www.vodafone.co.uk/basket?planSkuId=120753&login=true&icmp=100gbtest/2024'
+            window.location = 'https://www.vodafone.co.uk/mobile/best-sim-only-deals'
         })
     }
+</script>
+
+<script>
+    //best-sim-only-deals
+    ////MUTATION OBSERVER - BODY////
+    let vt627_observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            let vt627_oldValue = mutation.oldValue;
+            let vt627_newValue = mutation.target.textContent;
+            if (vt627_oldValue !== vt627_newValue) {
+                //changes here 
+                if (document.querySelectorAll(".vfuk-PlanCardList__planCardsItemCard").length > 1) {
+                    if (document.querySelector(".vfuk-PlanCardList__planCardsItemCard").firstChild.firstChild.querySelector('div:nth-child(2)>h2') && document.querySelector(".vfuk-PlanCardList__planCardsItemCard").firstChild.firstChild.querySelector('div:nth-child(2)>h2').innerText === 'Additional Plan: 100GB Red') {
+                        //change sash
+                        document.querySelector("#plan-list-content > div > div > div:nth-child(1) > div > div:nth-child(1) > div > div").style.backgroundColor = 'black'
+                        //change border
+                        document.querySelector("#slots-wrapper").style.borderColor = 'black'
+                    }
+                }
+            }
+        });
+    });
+
+    vt627_observer.observe(document.body, {
+        //characterDataOldValue: true,
+        subtree: true,
+        childList: true,
+        //characterData: true
+        attributes: true
+    });
 </script>

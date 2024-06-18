@@ -5,31 +5,21 @@ function vt612_changePromoText() {
     //define an array of possible values to match
     var vt612_valuesToMatch = [
         'iPhone 15',
-        'iPhone 15 Pro',
         'iPhone 15 Pro Max',
-        'iPhone 15 Plus',
-        'iPhone 14',
-        'Galaxy S24 5G',
-        'Galaxy S24 Plus 5G',
         'Galaxy S24 Ultra 5G',
-        'Pixel 8',
+        'Galaxy Z Fold5',
         'Pixel 8 Pro',
-        'Pixel 8a'
+        'Pixel Fold'
     ];
 
     //define text change
     var vt612_promos = [
-        '£528 saving',
-        '£528 saving',
-        '£528 saving',
-        '£528 saving',
-        'Save £288',
-        'Save up to £636',
-        'Save up to £600',
-        'Save up to £600',
-        'Save up to £636',
-        'Save up to £636',
-        'Save up to £672'
+       'Save £432', // 'iPhone 15',
+       'Save £432', // 'iPhone 15 Pro Max',
+       'Save £704',// 'Galaxy S24 Ultra 5G',
+       'Save £704',// 'Galaxy Z Fold5',
+       'Save £756',// 'Pixel 8 Pro',
+       'Save £900'// 'Pixel Fold'
     ]
 
     for (var i = 0; i < vt612_targetTexts.length; i++) {
@@ -52,47 +42,66 @@ function vt612_changePromoText() {
     }
 }
 
-////POLLING FUNCTION////
-//polling function config
-var vt612_pxFuncFired = 0;
-var vt612_pxInterval = setInterval(vt612_pxPollFunc, 50);
-
-//polling function
-function vt612_pxPollFunc() {
-    vt612_pxFuncFired += 1;
-
-    if (vt612_pxFuncFired >= 20) {
-        //try 20 times, if not found clear px func
-        clearInterval(vt612_pxInterval);
-    }
-
-    //target element 
-    var vt612_gridSection = document.querySelector('[data-component-name="ContainerWithLabel"]')
-
-    if (vt612_gridSection) {
-        //clear polling when found
-        clearInterval(vt612_pxInterval);
-        //ACTIONS HERE 
-        vt612_changePromoText() 
-    }
-}
-
-//mutation observer 
-const observer = new MutationObserver((mutationsList, observer) => {
-    //check for mutations
-    for (const mutation of mutationsList) {
-        if (mutation.target.matches('[data-component-name="SimpleGrid"]')) {
-            //apply modifications when changes are detected
+////MUTATION OBSERVER - BODY////
+let vt612_observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        let vt612_oldValue = mutation.oldValue;
+        let vt612_newValue = mutation.target.textContent;
+        if (vt612_oldValue !== vt612_newValue) {
+            //changes here 
             vt612_changePromoText()
         }
-    }
+    });
 });
 
-//define the configuration for the MutationObserver
-const observerConfig = {
-    childList: true,
+vt612_observer.observe(document.body, {
+    //characterDataOldValue: true,
     subtree: true,
-};
+    childList: true,
+    //characterData: true
+    attributes: true
+});
 
-//start observing changes
-observer.observe(document.body, observerConfig);
+// ////POLLING FUNCTION////
+// //polling function config
+// var vt612_pxFuncFired = 0;
+// var vt612_pxInterval = setInterval(vt612_pxPollFunc, 100);
+
+// //polling function
+// function vt612_pxPollFunc() {
+//     vt612_pxFuncFired += 1;
+
+//     if (vt612_pxFuncFired >= 30) {
+//         //try 20 times, if not found clear px func
+//         clearInterval(vt612_pxInterval);
+//     }
+
+//     //target element 
+//     var vt612_targetSash = document.querySelectorAll('[class*=Headingstyle__Heading-sc]')[2].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('[class*="Spanstyle__Span-sc"]')
+//     if (vt612_targetSash && vt612_targetSash.innerHTML === 'Offers Available') {
+//         //clear polling when found
+//         clearInterval(vt612_pxInterval);
+//         //ACTIONS HERE 
+//         vt612_changePromoText()
+//     }
+// }
+
+// //mutation observer 
+// const observer = new MutationObserver((mutationsList, observer) => {
+//     //check for mutations
+//     for (const mutation of mutationsList) {
+//         if (mutation.target.matches('[data-component-name="SimpleGrid"]')) {
+//             //apply modifications when changes are detected
+//             vt612_changePromoText()
+//         }
+//     }
+// });
+
+// //define the configuration for the MutationObserver
+// const observerConfig = {
+//     childList: true,
+//     subtree: true,
+// };
+
+// //start observing changes
+// observer.observe(document.body, observerConfig);
