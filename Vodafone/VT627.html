@@ -57,7 +57,7 @@
 
     function vt627_clonedElem() {
         //clone element 
-        var vt627_planCard = document.querySelectorAll('[data-selector="plan-card"]')[document.querySelectorAll('[data-selector="plan-card"]').length- 1];
+        var vt627_planCard = document.querySelectorAll('[data-selector="plan-card"]')[document.querySelectorAll('[data-selector="plan-card"]').length - 1];
         var vt627_clonedElem = vt627_planCard.cloneNode(true);
         vt627_clonedElem.id = 'vt627_planCard';
         //insert element
@@ -79,44 +79,64 @@
         //remove p element 
         document.querySelector("#vt627_planCard > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > p").innerHTML = 'Offer applied in basket.'
         //CTA 
-        document.querySelector("#vt627_planCard > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > button").innerHTML = 'Buy now'
+        document.querySelector("#vt627_planCard > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > button").innerHTML = 'Add to Basket'
         //insert text
-        var vt627_tandc = '<p style="font-size: small; padding-top: 8px;">*Monthly price increases each April by the Consumer Price Index rate of inflation published in January of that year + 3.9%</p>'
+        var vt627_tandc = '<p style="font-size: small; padding-top: 8px;">*Annual Price Increase: monthly plan increases annually on 1 April by £1.80 for Pay monthly Airtime Plans (inc 20% VAT)</p>'
         document.querySelector("#vt627_planCard > div > div > div > div").insertAdjacentHTML('beforeend', vt627_tandc)
         //button re-direct
         var vt627_CTA = document.querySelector("#vt627_planCard > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > div:nth-child(2)")
         vt627_CTA.addEventListener('click', function () {
-            window.location = 'https://www.vodafone.co.uk/mobile/best-sim-only-deals'
+            window.location = 'https://www.vodafone.co.uk/basket?planSkuId=120753&login=true&icmp=100gbtest/2024'
         })
     }
 </script>
 
-<script>
-    //best-sim-only-deals
-    ////MUTATION OBSERVER - BODY////
-    let vt627_observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            let vt627_oldValue = mutation.oldValue;
-            let vt627_newValue = mutation.target.textContent;
-            if (vt627_oldValue !== vt627_newValue) {
-                //changes here 
-                if (document.querySelectorAll(".vfuk-PlanCardList__planCardsItemCard").length > 1) {
-                    if (document.querySelector(".vfuk-PlanCardList__planCardsItemCard").firstChild.firstChild.querySelector('div:nth-child(2)>h2') && document.querySelector(".vfuk-PlanCardList__planCardsItemCard").firstChild.firstChild.querySelector('div:nth-child(2)>h2').innerText === 'Additional Plan: 100GB Red') {
-                        //change sash
-                        document.querySelector("#plan-list-content > div > div > div:nth-child(1) > div > div:nth-child(1) > div > div").style.backgroundColor = 'black'
-                        //change border
-                        document.querySelector("#slots-wrapper").style.borderColor = 'black'
-                    }
-                }
-            }
-        });
-    });
+<!-- <script>
+    ////POLLING FUNCTION////
+    //polling function config
+    var vtxxx_nodeCheck_pxFuncFired = 0;
+    var vtxxx_nodeCheck_pxInterval = setInterval(vtxxx_nodeCheck_pxPollFunc, 100); //0.1 seconds * 20 = 2 seconds
 
-    vt627_observer.observe(document.body, {
-        //characterDataOldValue: true,
-        subtree: true,
-        childList: true,
-        //characterData: true
-        attributes: true
-    });
-</script>
+    //polling function
+    function vtxxx_nodeCheck_pxPollFunc() {
+        vtxxx_nodeCheck_pxFuncFired += 1;
+
+        if (vtxxx_nodeCheck_pxFuncFired >= 20) {
+            //try 20 times, if not found, clear px func
+            clearInterval(vtxxx_nodeCheck_pxInterval);
+        }
+
+        if (document.body.nodeType === 1) {
+            //clear polling when found
+            clearInterval(vtxxx_nodeCheck_pxInterval);
+            //MUTATION OBSERVER
+            //best-sim-only-deals
+            ////MUTATION OBSERVER - BODY////
+            let vt627_observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    let vt627_oldValue = mutation.oldValue;
+                    let vt627_newValue = mutation.target.textContent;
+                    if (vt627_oldValue !== vt627_newValue) {
+                        //changes here 
+                        if (document.querySelectorAll(".vfuk-PlanCardList__planCardsItemCard").length > 1) {
+                            if (document.querySelector(".vfuk-PlanCardList__planCardsItemCard").firstChild.firstChild.querySelector('div:nth-child(2)>h2') && document.querySelector(".vfuk-PlanCardList__planCardsItemCard").firstChild.firstChild.querySelector('div:nth-child(2)>h2').innerText === 'Additional Plan: 100GB Red') {
+                                //change sash
+                                document.querySelector("#plan-list-content > div > div > div:nth-child(1) > div > div:nth-child(1) > div > div").style.backgroundColor = 'black'
+                                //change border
+                                document.querySelector("#slots-wrapper").style.borderColor = 'black'
+                            }
+                        }
+                    }
+                });
+            });
+
+            vt627_observer.observe(document.body, {
+                //characterDataOldValue: true,
+                subtree: true,
+                childList: true,
+                //characterData: true
+                attributes: true
+            });
+        }
+    }
+</script> -->

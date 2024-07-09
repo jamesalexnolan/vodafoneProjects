@@ -36,11 +36,11 @@
 // });
 
 // //Kill Switch 
-// let vt588_ks_observer = new MutationObserver((mutations) => {
+// let vt588_observer = new MutationObserver((mutations) => {
 //     mutations.forEach((mutation) => {
-//         let vt588_ks_oldValue = mutation.oldValue;
-//         let vt588_ks_newValue = mutation.target.textContent;
-//         if (vt588_ks_oldValue !== vt588_ks_newValue) {
+//         let vt588_oldValue = mutation.oldValue;
+//         let vt588_newValue = mutation.target.textContent;
+//         if (vt588_oldValue !== vt588_newValue) {
 //             if (window.location.href.indexOf('voxi.co.uk/contactus') > -1) {
 //                 //     var d = new Date();
 //                 //     var currentHourGMT = d.getUTCHours() - (d.getTimezoneOffset() / 60)
@@ -54,7 +54,7 @@
 //     });
 // });
 
-// vt588_ks_observer.observe(document.body, {
+// vt588_observer.observe(document.body, {
 //     //characterDataOldValue: true,
 //     subtree: true,
 //     childList: true,
@@ -90,8 +90,8 @@ function vt588_pxPollFunc() {
                 if (vt588_oldValue !== vt588_newValue) {
                     if (window.location.href.indexOf('voxi.co.uk/contact-us') > -1 || window.location.href.indexOf('voxi.co.uk/contactus') > -1) {
                         //a/b test re-direct (9am to 5pm)
-                        //if (window.location.href.indexOf('voxi.co.uk/contact-us') > -1) {
-                        if (window.location.href.indexOf('/contact-us') > -1) {
+                        if (window.location.href.indexOf('voxi.co.uk/contact-us') > -1) {
+                        //if (window.location.href.indexOf('/contact-us') > -1) {
                             var d = new Date();
                             var currentHourGMT = d.getUTCHours() + 1 //daylight savings
                             var currentDayGMT = d.getUTCDay()
@@ -101,8 +101,8 @@ function vt588_pxPollFunc() {
                         }
 
                         //a-b test redirect (out of office hours)
-                        // if (window.location.href.indexOf('voxi.co.uk/contactus') > -1) {
-                        if (window.location.href.indexOf('/contact-us') > -1) {
+                         if (window.location.href.indexOf('voxi.co.uk/contactus') > -1) {
+                        //if (window.location.href.indexOf('/contact-us') > -1) {
                             var d = new Date();
                             var currentDayGMT = d.getUTCDay()
                             var currentHourGMT = d.getUTCHours() + 1 //daylight savings
@@ -148,12 +148,16 @@ var vt588_pxInterval = setInterval(vt588_pxPollFunc, 100);
 function vt588_pxPollFunc() {
     vt588_pxFuncFired += 1;
 
+    console.log('px started')
+
     if (vt588_pxFuncFired >= 20) {
         //try 20 times, if not found clear px func
         clearInterval(vt588_pxInterval);
     }
 
     if (document.body.nodeType === 1) {
+        console.log('body node type 1')
+
         //clear polling when found
         clearInterval(vt588_pxInterval);
         //ACTIONS HERE 
@@ -164,13 +168,17 @@ function vt588_pxPollFunc() {
                 let vt588_newValue = mutation.target.textContent;
                 if (vt588_oldValue !== vt588_newValue) {
                     //Kill Switch 
-                    let vt588_ks_observer = new MutationObserver((mutations) => {
+                    let vt588_observer = new MutationObserver((mutations) => {
                         mutations.forEach((mutation) => {
-                            let vt588_ks_oldValue = mutation.oldValue;
-                            let vt588_ks_newValue = mutation.target.textContent;
-                            if (vt588_ks_oldValue !== vt588_ks_newValue) {
-                                //if (window.location.href.indexOf('voxi.co.uk/contactus') > -1) {
-                                if (window.location.href.indexOf('/contactus') > -1) {
+                            let vt588_oldValue = mutation.oldValue;
+                            let vt588_newValue = mutation.target.textContent;
+                            if (vt588_oldValue !== vt588_newValue) {
+                                console.log('Mutation found')
+
+                                if (window.location.href.indexOf('voxi.co.uk/contactus') > -1) {
+                                    console.log('URL condition met')
+
+                                //if (window.location.href.indexOf('/contactus') > -1) {
                                     //     var d = new Date();
                                     //     var currentHourGMT = d.getUTCHours() - (d.getTimezoneOffset() / 60)
                                     //     if (!(currentHourGMT >= 9 && currentHourGMT < 17)) {
@@ -179,7 +187,9 @@ function vt588_pxPollFunc() {
                                     // }
                                     window.location = 'https://www.voxi.co.uk/contact-us'
                                 } else {
-                                    vt588_ks_observer.disconnect()
+                                    vt588_observer.disconnect()
+                                    console.log('disconnected')
+
                                 }
                             }
                         });
@@ -188,7 +198,7 @@ function vt588_pxPollFunc() {
             });
         });
 
-        vt588_ks_observer.observe(document.body, {
+        vt588_observer.observe(document.body, {
             //characterDataOldValue: true,
             subtree: true,
             childList: true,
@@ -198,8 +208,10 @@ function vt588_pxPollFunc() {
 
         //Reconnect mutation observer if user navigates back 
         window.navigation.addEventListener("navigate", (event) => {
+            console.log('navigate happened - observer re-connected')
+
             //start observing again
-            vt588_ks_observer.observe(document.body, {
+            vt588_observer.observe(document.body, {
                 //characterDataOldValue: true,
                 subtree: true,
                 childList: true,

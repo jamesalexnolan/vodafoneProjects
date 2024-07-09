@@ -1,3 +1,16 @@
+/*How the code works */
+/*Polling function fires on page load - Havn't used a MO due to page load issues, and this isn't in an SPA so not required */
+/*The polling function runs for 4 seconds */
+/*Checks that a user is on the concurrent loans page */
+/*If true - checks that the window object is populated */
+/*If after 4 seconds - if the not loans or window object is not populated, don't make changes */
+/*Within the code we're making some basic CSS and HTML changes, hiding elements, changing text, setting style tags, replicating user clicks to change CTA states etc. */
+//*Intresting sections*//
+/*Calculating the date using JavaScript date function - Lines 72 to 88 - On line 99 we're populating text based on months remaining (if months = 0 or 1, just show days) */
+/*Populating HTML using window object created by FE/BE team - Shown on line 99 */
+/*Good example of CRO/DEV collab and use being to use JS on a site in a agile and intresting way */
+
+
 ////POLLING FUNCTION////
 //polling function config
 var vt519_pxFuncFired = 0;
@@ -7,8 +20,8 @@ var vt519_pxInterval = setInterval(vt519_pxPollFunc, 100);
 function vt519_pxPollFunc() {
     vt519_pxFuncFired += 1;
 
-    if (vt519_pxFuncFired >= 40) {
-        //try 20 times, if not found clear px func
+    if (vt519_pxFuncFired >= 40) { //4 seconds
+        //try 40 times, if not found clear px func
         clearInterval(vt519_pxInterval);
     }
 
@@ -32,7 +45,6 @@ function vt519_CLOPChanges() {
     document.querySelectorAll('[data-component-name="Heading"]')[1].style.fontSize = 'xx-large'
     //hide number
     document.querySelectorAll('[data-component-name="Heading"]')[2].remove()
-    //hide hr 
 
     document.querySelector('.vfuk-BasketCLOP__divider-container').remove()
     //hide number 
