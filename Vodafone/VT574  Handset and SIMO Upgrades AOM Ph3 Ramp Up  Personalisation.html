@@ -15,13 +15,13 @@
     ////POLLING FUNCTION////
     //polling function config
     var vt574_pxFuncFired = 0;
-    var vt574_pxInterval = setInterval(vt574_pxPollFunc, 500);
+    var vt574_pxInterval = setInterval(vt574_pxPollFunc, 100);
 
     //polling function
     function vt574_pxPollFunc() {
         vt574_pxFuncFired += 1;
 
-        if (vt574_pxFuncFired >= 25) {
+        if (vt574_pxFuncFired >= 50) {
             //try 20 times, if not found clear px func
             clearInterval(vt574_pxInterval);
         }
@@ -36,4 +36,9 @@
 
         }
     }
+
+    //click to re-trigger PX func
+    document.querySelector('[role="tablist"]').addEventListener('click', function () {
+        setInterval(vt574_pxPollFunc, 100);
+    })
 </script>
