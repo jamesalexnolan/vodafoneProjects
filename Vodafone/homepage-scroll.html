@@ -1,0 +1,67 @@
+<style>
+    .cro-scroll-section {
+        text-size-adjust: 100%;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0px;
+        font-family: Vodafone, "Open Sans", sans-serif;
+        font-weight: 400;
+        color: rgb(13, 13, 13);
+        -webkit-font-smoothing: antialiased;
+        text-align: left;
+        box-sizing: inherit;
+        width: 100%;
+        background: linear-gradient(to right top, rgb(130, 0, 0), rgb(230, 0, 0));
+        position: relative;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .cro-scroll-arrow {
+        align-content: center;
+    }
+
+    .cro-scroll-arrow>svg {
+        height: 50px;
+        width: 50px;
+        color: white;
+    }
+
+    .cro-scroll-container {
+        width: 40%;
+        display: flex;
+        justify-content: center;
+    }
+    /* add curve to elements*/ 
+</style>
+
+<script>
+    //insert scroll banner after each element 
+    var homepageContentElements = document.querySelector('[id="content"]').children
+
+    //for each add this click event     
+    document.querySelector('.cro-scroll-container').addEventListener('click', function () {
+        //scroll to next element 
+        document.querySelector('[data-component-name="FunctionalContentBlock"]').scrollIntoView({
+            behavior: 'smooth',
+        })
+    })
+
+    //add logic to go back up 
+    //scroll percentage 
+</script>
+
+<body>
+    <div class="cro-scroll-section">
+        <div class="cro-scroll-container">
+            <div class="cro-scroll-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>

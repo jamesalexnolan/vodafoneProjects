@@ -131,8 +131,7 @@
                                 //reverse order 
                                 //card container
                                 const container = document.querySelector('.vfuk-PlanCardMiniListLegacy__cardsGridContainer')
-                                const firstCardHeader = document.querySelectorAll("div.vfuk-PlanCardMiniDescription__heading > div:nth-child(2) > div > div:nth-child(1) > h5")[0]
-                                if (container && container.childElementCount > 50 && firstCardHeader && !firstCardHeader.innerHTML.includes('Unlimited')) {
+                                if (container && container.childElementCount > 50) {
                                     //call function 
                                     removeNonUnlimited()
                                     //disconnect MO 
@@ -188,7 +187,7 @@
                     <button id="unlimited-cro-cta">Unlimited</button>\
                 </div>\
             </div>\
-            <p class="cro-tandc">*Airtime monthly price increases each April by <a href="https://www.vodafone.co.uk/business/price-changes">Consumer Price index</a> rate of inflation published in January + 3.9%</p>\
+            <p class="cro-tandc">*<a href="https://www.vodafone.co.uk/pricechanges">Annual Price Increase:</a> Your monthly Airtime Plan will increase each year on 1 April by £1.80</p>\
         '
 
         //insert CTAs

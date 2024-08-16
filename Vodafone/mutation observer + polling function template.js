@@ -131,3 +131,6 @@ function vtxxx_nodeCheck_pxPollFunc() {
         })
     }
 }
+
+////PLACE HOLDER IMG////
+//https://loremflickr.com/320/240

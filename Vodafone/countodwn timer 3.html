@@ -88,36 +88,51 @@
 
 <script>
     ////MUTATION OBSERVER - BODY////
-    let vtxxx_observer = new MutationObserver((mutations) => {
+    let VX104_observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
-            let vtxxx_oldValue = mutation.oldValue;
-            let vtxxx_newValue = mutation.target.textContent;
-            if (vtxxx_oldValue !== vtxxx_newValue) {
+            let VX104_oldValue = mutation.oldValue;
+            let VX104_newValue = mutation.target.textContent;
+            if (VX104_oldValue !== VX104_newValue) {
                 if (window.location.href.indexOf('#add-ons') > -1 || window.location.href.indexOf('#airtimeplans') > -1 || window.location.href.indexOf('#phoneplan') > -1) {
                     if (document.querySelector('.cro-timer') && !document.querySelector('.cro-timer').classList.contains('hide_element')) {
                         document.querySelector('.cro-timer').classList.add('hide_element')
+                        VX104_observer.disconnect()
                     }
                 } else {
                     if (document.querySelectorAll('[class*="Containerstyle__ContainerContent-sc"]')[1] && !document.querySelector('.cro-timer')) {
                         //ACTIONS HERE 
                         croTimer()
+                        VX104_observer.disconnect()
                     }
 
                     if (document.querySelector('.cro-timer') && document.querySelector('.cro-timer').classList.contains('hide_element')) {
                         document.querySelector('.cro-timer').classList.remove('hide_element')
+                        VX104_observer.disconnect()
                     }
                 }
             }
         });
     });
 
-    vtxxx_observer.observe(document.body, {
+    VX104_observer.observe(document.body, {
         //characterDataOldValue: true,
         subtree: true,
         childList: true,
         //characterData: true
         attributes: true
     });
+
+    //Reconnect mutation observer if user navigates back 
+    window.navigation.addEventListener("navigate", (event) => {
+        //start observing again
+        VX104_observer.observe(document.body, {
+            //characterDataOldValue: true,
+            subtree: true,
+            childList: true,
+            //characterData: true,
+            attributes: true
+        });
+    })
 
     //insert timer
     function croTimer() {
