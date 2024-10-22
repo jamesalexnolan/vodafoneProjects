@@ -141,8 +141,9 @@
             //add classes
             var vt697aomCards = document.querySelector('[data-selector*="recommendations-container-cardlist-cards"]>div>div>div').children
             vt697aomCards[0].parentElement.classList.add('cro-AOM-Card_centering')
-            vt697aomCards[1].classList.add('vt697_hide')
-            vt697aomCards[2].classList.add('vt697_hide')
+            for (var i = 1; i < vt697aomCards.length; i++) {
+                vt697aomCards[i].classList.add('vt697_hide')
+            }
             //handle clicks on CTA 
             var vt697CTA = document.querySelector('.cro-AOM-CTA-Container-close')
             //add text
@@ -151,8 +152,9 @@
                 //toggle hide/display class 
                 //toggle centering class
                 vt697aomCards[0].parentElement.classList.toggle('cro-AOM-Card_centering')
-                vt697aomCards[1].classList.toggle('vt697_hide')
-                vt697aomCards[2].classList.toggle('vt697_hide')
+                for (var i = 1; i < vt697aomCards.length; i++) {
+                    vt697aomCards[i].classList.toggle('vt697_hide')
+                }
                 //change text of CTA
                 vt697CTA.querySelector('p').classList.toggle('view-offers-cta_content')
                 vt697CTA.querySelector('p').classList.toggle('hide-offers-cta_content')
@@ -162,6 +164,12 @@
                     document.querySelector('[data-selector="recommendations-container-cardlist-heading"]').parentElement.parentElement.parentElement.parentElement.children[1].querySelector('h2').scrollIntoView({
                         behavior: 'smooth',
                     })
+                    //tracking
+                    if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
+                        utag.vfuk_data.event_label = "Hide my personalised offers";
+                        utag.vfuk_data.event_action = "button";
+                        utag.view(utag.vfuk_data);
+                    }
                 }
                 //scroll for opening
                 if (vt697CTA.querySelector('p').classList.contains('hide-offers-cta_content')) {
@@ -169,6 +177,12 @@
                     document.querySelector('[data-selector="recommendations-container-cardlist-heading"]').scrollIntoView({
                         behavior: 'smooth',
                     })
+                    //tracking
+                    if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
+                        utag.vfuk_data.event_label = "View my personalised offers";
+                        utag.vfuk_data.event_action = "button";
+                        utag.view(utag.vfuk_data);
+                    }
                 }
             })
         }
