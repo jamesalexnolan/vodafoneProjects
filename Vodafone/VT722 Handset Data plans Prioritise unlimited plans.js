@@ -54,26 +54,4 @@ function vt722_nodeCheck_pxPollFunc() {
             })
         })
     }
-    //function to call 
-    function vt722AirTimePicker() {
-        //insert banner 
-        var vt722Banner = ''
-        simPlanPickers.insertAdjacentHTML('beforeend', vt722Banner)
-        //capture pricing 
-        var vt722_pricing = document.querySelectorAll('[data-subtitle*="from"]')
-        vt722_pricing.forEach(function (vt722_price) {
-            vt722_price.innerHTML.replace(/[a-z £]/g, '')
-            //place values into an array
-            //last number = unlimited
-        })
-        //select cards
-        var vt722_cards = document.querySelector('[data-selector="plans-data-filters"]>div').children
-        //click event each card 
-        vt722_cards.forEach(function (vt722_card) {
-            vt722_card.addEventListener('click', function () {
-                //use the pricing array 
-                //if card 0 clicked > price 0 - unlimited = text, if card 1 clicked > price 1 - unlimited = text etc. 
-            })
-        })
-    }
 }
