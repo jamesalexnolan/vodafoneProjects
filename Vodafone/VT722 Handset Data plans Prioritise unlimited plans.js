@@ -54,4 +54,38 @@ function vt722_nodeCheck_pxPollFunc() {
             })
         })
     }
+    function vt722AirTimePicker() {
+    // Insert banner into the HTML (you can replace this with your actual banner content)
+    var vt722Banner = '<div class="banner">Your custom banner here</div>';
+    simPlanPickers.insertAdjacentHTML('beforeend', vt722Banner);
+
+    // Capture pricing elements that contain the word "from" in their data-subtitle attribute
+    var vt722_pricing = document.querySelectorAll('[data-subtitle*="from"]');
+    
+    // Initialize an array to hold the prices
+    var pricingArray = [];
+
+    // Loop through each pricing element
+    vt722_pricing.forEach(function (vt722_price) {
+        // Remove all letters, spaces, and currency symbols (£), leaving only the numeric values
+        var price = vt722_price.innerHTML.replace(/[a-z £]/g, '');
+        
+        // Push the cleaned price into the array
+        pricingArray.push(price); // Always push the price since there will be no "Unlimited" option
+    });
+
+    // Select all the plan cards by targeting their parent div
+    var vt722_cards = document.querySelector('[data-selector="plans-data-filters"]>div').children;
+
+    // Add click event listener to each card
+    Array.from(vt722_cards).forEach(function (vt722_card, index) {
+        vt722_card.addEventListener('click', function () {
+            // Use the pricing array to get the price based on the clicked card's index
+            var selectedPrice = pricingArray[index];
+
+            // Display the price for the selected card
+            alert("You selected a plan with a price of £" + selectedPrice);
+        });
+    });
+    }
 }
