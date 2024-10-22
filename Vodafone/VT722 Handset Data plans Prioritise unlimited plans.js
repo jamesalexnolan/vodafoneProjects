@@ -8,7 +8,7 @@ function vt722_nodeCheck_pxPollFunc() {
 
     if (vt722_nodeCheck_pxFuncFired >= 20) {
         //try 20 times, if not found, clear px func
-        clearInterval(vt722_nodeCheck_pxInterval);
+        clearInterval(vt722_nodeCheck_pxInterval)
     }
 
     if (document.body.nodeType === 1) {
@@ -55,37 +55,33 @@ function vt722_nodeCheck_pxPollFunc() {
         })
     }
     function vt722AirTimePicker() {
-    // Insert banner into the HTML (you can replace this with your actual banner content)
-    var vt722Banner = '<div class="banner">Your custom banner here</div>';
-    simPlanPickers.insertAdjacentHTML('beforeend', vt722Banner);
-
-    // Capture pricing elements that contain the word "from" in their data-subtitle attribute
-    var vt722_pricing = document.querySelectorAll('[data-subtitle*="from"]');
-    
-    // Initialize an array to hold the prices
-    var pricingArray = [];
-
-    // Loop through each pricing element
-    vt722_pricing.forEach(function (vt722_price) {
-        // Remove all letters, spaces, and currency symbols (£), leaving only the numeric values
-        var price = vt722_price.innerHTML.replace(/[a-z £]/g, '');
-        
-        // Push the cleaned price into the array
-        pricingArray.push(price); // Always push the price since there will be no "Unlimited" option
-    });
-
-    // Select all the plan cards by targeting their parent div
-    var vt722_cards = document.querySelector('[data-selector="plans-data-filters"]>div').children;
-
-    // Add click event listener to each card
-    Array.from(vt722_cards).forEach(function (vt722_card, index) {
-        vt722_card.addEventListener('click', function () {
-            // Use the pricing array to get the price based on the clicked card's index
-            var selectedPrice = pricingArray[index];
-
-            // Display the price for the selected card
-            alert("You selected a plan with a price of £" + selectedPrice);
-        });
-    });
+        //capture prices    
+        var vt722_pricing = document.querySelectorAll('[data-subtitle*="from"]')
+        var pricingArray = []
+        vt722_pricing.forEach(function (vt722_price) {
+            var price = vt722_price.innerHTML.replace(/[a-z £]/g, '')
+            pricingArray.push(price)
+        })
+        //insert banner
+        var simPlanPickers = document.querySelector('[data-component-name="SimpleGrid"]')
+        var bannerTarget = simPlanPickers.parentElement.parentElement.parentElement.parentElement
+        var initalPricing = pricingArray[pricingArray.length - 1] - pricingArray[0]
+        var vt722Banner = '<div class="vt722_banner">Spend £' + initalPricing + ' and get Unlimited data</div>'
+        bannerTarget.insertAdjacentHTML('afterend', vt722Banner)
+        //click events on cards
+        var vt722_cards = document.querySelector('[data-selector="plans-data-filters"]>div').children
+        var banner = document.querySelector('.vt722_banner')
+        Array.from(vt722_cards).forEach(function (vt722_card, index) {
+            vt722_card.addEventListener('click', function () {
+                var selectedPrice = pricingArray[index]
+                var unlimitedPrice = pricingArray[pricingArray.length - 1]
+                var upliftPrice = unlimitedPrice - selectedPrice
+                if (selectedPrice === unlimitedPrice) {
+                    banner.innerHTML = "Unlimited selected"
+                } else {
+                    banner.innerHTML = "Spend £" + upliftPrice + " and get Unlimited data"
+                }
+            })
+        })
     }
 }
