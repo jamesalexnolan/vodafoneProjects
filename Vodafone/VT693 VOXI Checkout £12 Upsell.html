@@ -145,7 +145,7 @@
                         utag.vfuk_data.event_action = "button";
                         utag.vfuk_data.event_label = "choose this plan>20gb";
                         utag.vfuk_data.event_category = "in_page";
-                        utag.view(utag.vfuk_data);
+                        utag.link(utag.vfuk_data);
                     }
                     //pop-up view
                     if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
@@ -156,27 +156,27 @@
                 })
                 //click to remove pop-up
                 var vt693Links = document.querySelectorAll('.y77vt693')
-                vt693Links.forEach(function (vt693Link) {
+                vt693Links.forEach(function (vt693Link, index) {
                     vt693Link.addEventListener('click', function () {
                         vt693PopUpInserted.remove()
                         //tracking
-                        if (vt693Links[0]) {
+                        if (index === 0) {
                             if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
                                 utag.vfuk_data.event_name = "cart_add";
                                 utag.vfuk_data.event_action = "button";
                                 utag.vfuk_data.event_label = "yes upgrade";
                                 utag.vfuk_data.page_name = "voxi>plans>75gb plan>upsell-overlay";
                                 utag.vfuk_data.event_category = "in_page";
-                                utag.view(utag.vfuk_data);
+                                utag.link(utag.vfuk_data);
                             }
-                        } else if (vt693Links[1]) {
+                        } else if (index === 1) {
                             if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
                                 utag.vfuk_data.event_name = "cart_add";
                                 utag.vfuk_data.event_action = "button";
                                 utag.vfuk_data.event_label = "No, Continue with £10 plan";
                                 utag.vfuk_data.page_name = "voxi>plans>75gb plan>upsell-overlay";
                                 utag.vfuk_data.event_category = "in_page";
-                                utag.view(utag.vfuk_data);
+                                utag.link(utag.vfuk_data);
                             }
                         }
                     })
@@ -189,14 +189,14 @@
             var vt693_newContainer = '    <div class="vt693_order-sum-container x77vt693">        <div class="vt693_order-sum_padding">            <div class="vt693_sum_padding" spacing="0">                <div>                    <span class="vt693_va">                        <svg class="vt693_width-svg" width="40" height="60" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">                            <path fill-rule="evenodd" clip-rule="evenodd" d="M23.986 16.4604C24.7006 15.8517 25.3212 15.2874 25.851 14.7642C27.2132 13.3945 28.1635 12.076 28.6963 10.8007C29.2297 9.52388 29.4916 7.93368 29.4916 6.02873C29.4916 5.57185 28.9585 5.00594 28.4896 5.00537C26.6673 5.00537 25.0777 5.28411 23.7238 5.84742C22.3704 6.41024 21.0413 7.34484 19.729 8.65005C19.2104 9.17501 18.6467 9.79503 18.0367 10.511L14.306 10.7094C14.0059 10.7471 13.7501 10.9046 13.5409 11.2026L11.1912 15.2309C11.1042 15.3834 11.0615 15.5533 11.0615 15.7291C11.0615 15.9741 11.1501 16.2005 11.351 16.4415L12.0395 17.1293C12.3057 17.3762 12.6558 17.4638 13.0244 17.3615L15.5319 16.5892L17.9079 18.9652L17.1404 21.4576C17.1061 21.5599 17.0954 21.6558 17.0954 21.7633C17.0954 22.0334 17.1935 22.2842 17.3849 22.4757L18.0824 23.1717C18.4266 23.4794 18.8804 23.5376 19.2713 23.3029L23.3458 20.9229C23.5922 20.747 23.7493 20.4915 23.7918 20.1432L23.986 16.4604ZM18.4687 21.6738L19.4186 18.5901L15.9068 15.0786L15.5231 15.1967L12.8228 16.0287L12.4721 15.6809L14.6002 12.0274L18.6832 11.812L18.8694 11.5909C19.5302 10.8062 20.1329 10.1383 20.6734 9.59128C21.8654 8.40566 23.0537 7.57011 24.2358 7.0785C25.3367 6.6205 26.6429 6.37349 28.1557 6.34212C28.1291 7.94077 27.8966 9.25596 27.466 10.2868C27.0068 11.3858 26.155 12.5677 24.9099 13.8197C24.3573 14.3654 23.689 14.9685 22.906 15.6278L22.6849 15.814L22.6697 16.1026L22.4715 19.8926L18.8184 22.0235L18.4687 21.6738Z" fill="white"/>                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.26556 23.6893C8.24502 23.7395 8.22415 23.791 8.20288 23.8437C7.65559 25.2014 7.60059 25.326 7.49746 25.4441L5.40576 27.8409L8.58126 27.6518C10.7913 27.5203 13.9683 26.2155 15.3361 24.046C16.4108 22.3415 16.1683 19.972 14.5493 18.8175C12.9018 17.6426 10.4011 18.0783 9.15147 19.6728C8.34762 20.6987 7.98768 21.7325 8.16915 23.0105L8.26556 23.6893ZM14.2082 23.335C12.8433 25.4999 9.41169 26.2667 8.50203 26.3209C8.77915 26.0033 9.02288 25.3896 9.29787 24.6972C9.69764 23.6905 10.1635 22.5175 10.894 21.8466C10.2124 21.8941 9.85784 22.2675 9.48926 22.823C9.35021 21.8439 9.69266 21.1439 10.201 20.4952C11.0072 19.4665 12.7053 19.1401 13.7751 19.903C14.8144 20.6441 14.8962 22.2438 14.2082 23.335Z" fill="white"/>                            <path d="M23.6347 10.9138C23.114 10.3931 23.114 9.54892 23.6347 9.02822C24.1554 8.50752 24.9996 8.50752 25.5203 9.02822C26.041 9.54892 26.041 10.3931 25.5203 10.9138C24.9996 11.4345 24.1554 11.4345 23.6347 10.9138Z" fill="white"/>                            </svg>                                                </span>                </div>            </div>            <div spacing="0" class="vt693_p-styling">                <div>                    <p>Would you like to get extra 50GB + Unlimited Music + Video for only £2 extra?</p>                    <a href="https://www.voxi.co.uk/acquisition/plans?planId=119664">Yes, upgrade</a>                </div>            </div>        </div>    </div>'
             vt693_container.insertAdjacentHTML('beforeend', vt693_newContainer)
             //tracking
-            document.querySelector('.vt693_p-styling>div>a').addEventListener('click', function(){
+            document.querySelector('.vt693_p-styling>div>a').addEventListener('click', function () {
                 if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
-                        utag.vfuk_data.event_name = "cart_add";
-                        utag.vfuk_data.event_action = "button";
-                        utag.vfuk_data.event_label = "yes upgrade_checkout";
-                        utag.vfuk_data.event_category = "in_page";
-                        utag.view(utag.vfuk_data);
-                    }
+                    utag.vfuk_data.event_name = "cart_add";
+                    utag.vfuk_data.event_action = "button";
+                    utag.vfuk_data.event_label = "yes upgrade_checkout";
+                    utag.vfuk_data.event_category = "in_page";
+                    utag.link(utag.vfuk_data);
+                }
             })
         }
     }

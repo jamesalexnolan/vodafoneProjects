@@ -1,3 +1,12 @@
+Login details
+Account - thomas.cobb
+Password - Password1!
+Security code - 4u7f1
+*Need to follow the mobile upgrade journey
+
+Variant URL :
+https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts?at_preview_token=mG7XbDzEbV_l-qHPAhsY8xaOiYBtnWeP4aYsTeyvTB4&at_preview_index=1_2&at_preview_listed_activities_only=true&at_preview_evaluate_as_true_audience_ids=4333144
+
 <style>
     /*accordion functionality*/
     .vt697_close {
@@ -109,9 +118,15 @@
                     let vt697_oldValue = mutation.oldValue
                     let vt697_newValue = mutation.target.textContent
                     if (vt697_oldValue !== vt697_newValue) {
-                        //check for AOM
-                        if (document.querySelector('[data-selector*="recommendations-container-cardlist-cards"]') && !document.querySelector('.cro-CTA-Content')) {
-                            vt697AomCTA()
+                        if (document.querySelector('[data-selector*="recommendations-container-cardlist-cards"]')) {
+                            if (document.querySelector('[data-selector*="recommendations-container-cardlist-cards"]>div>div>div').children.length > 1) {
+                                if (!document.querySelector('.cro-CTA-Content')) {
+                                    vt697AomCTA()
+                                    vt697_observer.disconnect()
+                                }
+                            } else {
+                                vt697_observer.disconnect()
+                            }
                         }
                     }
                 })
@@ -124,75 +139,76 @@
                 //characterData: true,
                 attributes: true
             })
-        }
 
-        function vt697AomCTA() {
-            //insert CTA 
-            var vt697aomCTAclose = '<div class="cro-AOM-CTA-Container-close">\
+            //disconnect after 5 seconds
+            setTimeout(() => {
+                if (!document.querySelector('[data-selector*="recommendations-container-cardlist-cards"]')) {
+                    vt697_observer.disconnect()
+                }
+            }, 5000);
+
+            function vt697AomCTA() {
+                //insert CTA 
+                var vt697aomCTAclose = '<div class="cro-AOM-CTA-Container-close">\
                                 <div class="cro-AOM-CTA-close">\
                                     <div class="cro-CTA-Content">\
                                         <p></p>\
                                     </div>\
                                 </div>\
                             </div>'
-            //insert aom CTA 
-            var vt697aomComponent = document.querySelector('[data-selector*="recommendations-container-cardlist-cards"]')
-            vt697aomComponent.insertAdjacentHTML('beforeEnd', vt697aomCTAclose)
-            //add classes
-            var vt697aomCards = document.querySelector('[data-selector*="recommendations-container-cardlist-cards"]>div>div>div').children
-            vt697aomCards[0].parentElement.classList.add('cro-AOM-Card_centering')
-            for (var i = 1; i < vt697aomCards.length; i++) {
-                vt697aomCards[i].classList.add('vt697_hide')
-            }
-            //handle clicks on CTA 
-            var vt697CTA = document.querySelector('.cro-AOM-CTA-Container-close')
-            //add text
-            vt697CTA.querySelector('p').classList.add('view-offers-cta_content')
-            vt697CTA.addEventListener('click', function () {
-                //toggle hide/display class 
-                //toggle centering class
-                vt697aomCards[0].parentElement.classList.toggle('cro-AOM-Card_centering')
+                //insert aom CTA 
+                var vt697aomComponent = document.querySelector('[data-selector*="recommendations-container-cardlist-cards"]')
+                vt697aomComponent.insertAdjacentHTML('beforeEnd', vt697aomCTAclose)
+                //add classes
+                var vt697aomCards = document.querySelector('[data-selector*="recommendations-container-cardlist-cards"]>div>div>div').children
+                vt697aomCards[0].parentElement.classList.add('cro-AOM-Card_centering')
                 for (var i = 1; i < vt697aomCards.length; i++) {
-                    vt697aomCards[i].classList.toggle('vt697_hide')
+                    vt697aomCards[i].classList.add('vt697_hide')
                 }
-                //change text of CTA
-                vt697CTA.querySelector('p').classList.toggle('view-offers-cta_content')
-                vt697CTA.querySelector('p').classList.toggle('hide-offers-cta_content')
-                //scroll for closing
-                if (vt697CTA.querySelector('p').classList.contains('view-offers-cta_content')) {
-                    //scroll to grid list
-                    document.querySelector('[data-selector="recommendations-container-cardlist-heading"]').parentElement.parentElement.parentElement.parentElement.children[1].querySelector('h2').scrollIntoView({
-                        behavior: 'smooth',
-                    })
-                    //tracking
-                    if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
-                        utag.vfuk_data.event_label = "Hide my personalised offers";
-                        utag.vfuk_data.event_action = "button";
-                        utag.view(utag.vfuk_data);
+                //handle clicks on CTA 
+                var vt697CTA = document.querySelector('.cro-AOM-CTA-Container-close')
+                var vt697CTAp = vt697CTA.querySelector('p')
+                var vt697Header = document.querySelector('[data-selector="recommendations-container-cardlist-heading"]')
+                //add text
+                vt697CTAp.classList.add('view-offers-cta_content')
+                vt697CTA.addEventListener('click', function () {
+                    //toggle hide/display class 
+                    //toggle centering class
+                    vt697aomCards[0].parentElement.classList.toggle('cro-AOM-Card_centering')
+                    for (var i = 1; i < vt697aomCards.length; i++) {
+                        vt697aomCards[i].classList.toggle('vt697_hide')
                     }
-                }
-                //scroll for opening
-                if (vt697CTA.querySelector('p').classList.contains('hide-offers-cta_content')) {
-                    //scroll to AOM
-                    document.querySelector('[data-selector="recommendations-container-cardlist-heading"]').scrollIntoView({
-                        behavior: 'smooth',
-                    })
-                    //tracking
-                    if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
-                        utag.vfuk_data.event_label = "View my personalised offers";
-                        utag.vfuk_data.event_action = "button";
-                        utag.view(utag.vfuk_data);
+                    //change text of CTA
+                    vt697CTAp.classList.toggle('view-offers-cta_content')
+                    vt697CTAp.classList.toggle('hide-offers-cta_content')
+                    //scroll for closing
+                    if (vt697CTAp.classList.contains('view-offers-cta_content')) {
+                        //scroll to grid list
+                        vt697Header.parentElement.parentElement.parentElement.parentElement.children[1].querySelector('h2').scrollIntoView({
+                            behavior: 'smooth',
+                        })
+                        //tracking
+                        if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
+                            utag.vfuk_data.event_label = "Hide my personalised offers";
+                            utag.vfuk_data.event_action = "button";
+                            utag.view(utag.vfuk_data);
+                        }
                     }
-                }
-            })
+                    //scroll for opening
+                    if (vt697CTAp.classList.contains('hide-offers-cta_content')) {
+                        //scroll to AOM
+                        vt697Header.scrollIntoView({
+                            behavior: 'smooth',
+                        })
+                        //tracking
+                        if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
+                            utag.vfuk_data.event_label = "View my personalised offers";
+                            utag.vfuk_data.event_action = "button";
+                            utag.view(utag.vfuk_data);
+                        }
+                    }
+                })
+            }
         }
     }
 </script>
-
-Login details
-Account - thomas.cobb2
-Password - Password2!
-Security code - 4u7f1
-*Need to follow the mobile upgrade journey
-
-https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts?at_preview_token=mG7XbDzEbV_l-qHPAhsY8xaOiYBtnWeP4aYsTeyvTB4&at_preview_index=1_2&at_preview_listed_activities_only=true&at_preview_evaluate_as_true_audience_ids=4333144
