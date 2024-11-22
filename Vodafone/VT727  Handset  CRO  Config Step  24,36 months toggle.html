@@ -1,5 +1,3 @@
-https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts?at_preview_token=DKbkwvDZln76k63f4RhQ54Zx98_3aZ3O8LES7mEJyKM&at_preview_index=1_2&at_preview_listed_activities_only=true
-
 <style>
     /*gen styles*/
     .vt727-hide-element {
@@ -11,15 +9,15 @@ https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts?at_preview_token=
     }
 
     .cro-border-adjust {
-        box-shadow: none;
+        box-shadow: none !important;
     }
 
     .cro-padding-adjust {
-        padding: 0;
+        padding: 0 !important;
     }
 
     .cro-padding-bottom {
-        padding-bottom: 0;
+        padding-bottom: 0 !important;
     }
 
     .cro_cta_selected {
@@ -27,7 +25,7 @@ https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts?at_preview_token=
         transition: 0.4s;
     }
 
-    .cro_cta_selected>div>p {
+    .cro_cta_selected>p {
         font-weight: bold;
     }
 
@@ -171,6 +169,27 @@ https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts?at_preview_token=
 
             //FUNCTIONS TO CALL
             function vt727ConfigCTAS() {
+                //variables and funcs 
+                var vt727_originalTunerElem = document.querySelector('[data-selector="tenure-stepper"]')
+                //toggle cta state function 
+                //24 month
+                function update24MonthCTA() {
+                    var cro24MonthCTA = document.querySelector('.vt727_24_cta')
+                    var cro36MonthCTA = document.querySelector('.vt727_36_cta')
+                    if (cro36MonthCTA.classList.contains('cro_cta_selected')) {
+                        cro36MonthCTA.classList.remove('cro_cta_selected')
+                    }
+                    cro24MonthCTA.classList.add('cro_cta_selected')
+                }
+                //36 month
+                function update36MonthCTA() {
+                    var cro24MonthCTA = document.querySelector('.vt727_24_cta')
+                    var cro36MonthCTA = document.querySelector('.vt727_36_cta')
+                    if (cro24MonthCTA.classList.contains('cro_cta_selected')) {
+                        cro24MonthCTA.classList.remove('cro_cta_selected')
+                    }
+                    cro36MonthCTA.classList.add('cro_cta_selected')
+                }
                 //insert CTA
                 var vt727CTAs = '<div class="vt727_cta_container">\
                                 <p class="config_header_cro">Choose your contract length</p>\
@@ -204,10 +223,54 @@ https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts?at_preview_token=
                     vt727_croCTAs.parentElement.parentElement.parentElement.classList.add('cro-border-adjust')
                     vt727_croCTAs.parentElement.parentElement.classList.add('cro-padding-adjust')
                     vt727_croCTAs.querySelector('.config_header_cro').classList.add('vt727-hide-element')
+                    //default to 36 months 
+                    //hide price while price changes
+                    var vt727_contractPrice_default = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
+                    vt727_contractPrice_default.classList.add('vt727-hide-element-opc')
+                    //toggle selected class
+                    update36MonthCTA()
+                    //polling function config
+                    var vt727_pxInterval_36Month_default = setInterval(vt727_pxPollFunc_36Month_default, 10);
+                    //polling function
+                    function vt727_pxPollFunc_36Month_default() {
+                        var vt727_tunerValue = vt727_originalTunerElem.querySelector('[data-component-name="Heading"]')
+                        if (!vt727_tunerValue.innerHTML.includes('36')) {
+                            var vt727_originalPlusCTA = document.querySelector('[aria-label="plus contract length"]')
+                            vt727_originalPlusCTA.click()
+                        } else {
+                            //clear polling when on 36
+                            clearInterval(vt727_pxInterval_36Month_default);
+                            //show price again 
+                            var vt727_contractPrice = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
+                            vt727_contractPrice.classList.remove('vt727-hide-element-opc')
+                        }
+                    }
+                } else if (!vt727_xChangeBanner && vt727_croCTAs) {
+                    //default to 36 months 
+                    //hide price while price changes
+                    var vt727_contractPrice_default = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
+                    vt727_contractPrice_default.classList.add('vt727-hide-element-opc')
+                    //toggle selected class
+                    update36MonthCTA()
+                    //polling function config
+                    var vt727_pxInterval_36Month_default = setInterval(vt727_pxPollFunc_36Month_default, 10);
+                    //polling function
+                    function vt727_pxPollFunc_36Month_default() {
+                        var vt727_tunerValue = vt727_originalTunerElem.querySelector('[data-component-name="Heading"]')
+                        if (!vt727_tunerValue.innerHTML.includes('36')) {
+                            var vt727_originalPlusCTA = document.querySelector('[aria-label="plus contract length"]')
+                            vt727_originalPlusCTA.click()
+                        } else {
+                            //clear polling when on 36
+                            clearInterval(vt727_pxInterval_36Month_default);
+                            //show price again 
+                            var vt727_contractPrice = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
+                            vt727_contractPrice.classList.remove('vt727-hide-element-opc')
+                        }
+                    }
                 }
                 //CTA functionality 
                 //hide element
-                var vt727_originalTunerElem = document.querySelector('[data-selector="tenure-stepper"]')
                 vt727_originalTunerElem.classList.add('vt727-hide-element')
                 //click fcuntions 
                 ////BODY CLICK/////
@@ -224,7 +287,7 @@ https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts?at_preview_token=
                         //polling function
                         function vt727_pxPollFunc_24Month() {
                             var vt727_tunerValue = vt727_originalTunerElem.querySelector('[data-component-name="Heading"]')
-                            if (!vt727_tunerValue.innerHTML.includes('24')) {
+                            if (!vt727_tunerValue.innerHTML.includes('24') && document.querySelector('.vt727_24_cta') && document.querySelector('.vt727_24_cta').classList.contains('cro_cta_selected')) {
                                 var vt727_originalMinusCTA = document.querySelector('[aria-label="minus contract length"]')
                                 vt727_originalMinusCTA.click()
                             } else {
@@ -248,7 +311,7 @@ https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts?at_preview_token=
                         //polling function
                         function vt727_pxPollFunc_36Month() {
                             var vt727_tunerValue = vt727_originalTunerElem.querySelector('[data-component-name="Heading"]')
-                            if (!vt727_tunerValue.innerHTML.includes('36')) {
+                            if (!vt727_tunerValue.innerHTML.includes('36') && document.querySelector('.vt727_36_cta') && document.querySelector('.vt727_36_cta').classList.contains('cro_cta_selected')) {
                                 var vt727_originalPlusCTA = document.querySelector('[aria-label="plus contract length"]')
                                 vt727_originalPlusCTA.click()
                             } else {
@@ -261,26 +324,9 @@ https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts?at_preview_token=
                         }
                     }
                 })
-                //toggle cta state function 
-                //24 month
-                function update24MonthCTA() {
-                    var cro24MonthCTA = document.querySelector('.vt727_24_cta')
-                    var cro36MonthCTA = document.querySelector('.vt727_36_cta')
-                    if (cro36MonthCTA.classList.contains('cro_cta_selected')) {
-                        cro36MonthCTA.classList.remove('cro_cta_selected')
-                    }
-                    cro24MonthCTA.classList.add('cro_cta_selected')
-                }
-                //36 month
-                function update36MonthCTA() {
-                    var cro24MonthCTA = document.querySelector('.vt727_24_cta')
-                    var cro36MonthCTA = document.querySelector('.vt727_36_cta')
-                    if (cro24MonthCTA.classList.contains('cro_cta_selected')) {
-                        cro24MonthCTA.classList.remove('cro_cta_selected')
-                    }
-                    cro36MonthCTA.classList.add('cro_cta_selected')
-                }
             }
         }
     }
 </script>
+
+https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts?at_preview_token=DKbkwvDZln76k63f4RhQ54Zx98_3aZ3O8LES7mEJyKM&at_preview_index=1_2&at_preview_listed_activities_only=true
