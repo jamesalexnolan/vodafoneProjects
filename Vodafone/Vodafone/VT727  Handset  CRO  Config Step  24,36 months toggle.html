@@ -1,0 +1,344 @@
+<style>
+    /*gen styles*/
+    .vt727-hide-element {
+        display: none !important;
+    }
+
+    .vt727-hide-element-opc {
+        opacity: 0;
+    }
+
+    .cro-border-adjust {
+        box-shadow: none !important;
+    }
+
+    .cro-padding-adjust {
+        padding: 0 !important;
+    }
+
+    .cro-padding-bottom {
+        padding-bottom: 0 !important;
+    }
+
+    .cro_cta_selected {
+        border: solid 3px #00697c !important;
+        transition: 0.4s;
+    }
+
+    .cro_cta_selected>p {
+        font-weight: bold;
+    }
+
+    /*xChange banner style*/
+    .vt727-xchangeStyles {
+        background: #f2f2f2;
+        padding: 12px 8px 12px 8px;
+        border-radius: 6px;
+    }
+
+    /*CTA styles*/
+    .vt727_cta_container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 16px;
+        flex-direction: column;
+    }
+
+    .config_header_cro {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        text-size-adjust: 100%;
+        font-family: Vodafone, "Open Sans", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        box-sizing: inherit;
+        margin: 0px;
+        color: rgb(13, 13, 13);
+        font-weight: 700;
+        line-height: 26px;
+        letter-spacing: 0px;
+        margin-bottom: 16px;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .vt727_ctas {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .vt727_24_cta,
+    .vt727_36_cta {
+        padding: 20px 10px 20px 10px;
+        border-radius: 6px;
+        border: 1px;
+        border: solid 1px #7e7e7e;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        width: 50%;
+    }
+
+    .vt727_24_cta:hover,
+    .vt727_36_cta:hover {
+        cursor: pointer;
+    }
+
+    /*mobile styling*/
+    @media (max-width: 768px) {
+        .config_header_cro {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            text-size-adjust: 100%;
+            font-family: Vodafone, "Open Sans", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            box-sizing: inherit;
+            margin: 0px;
+            line-height: 20px;
+            letter-spacing: 0px;
+            color: rgb(13, 13, 13);
+            font-weight: 700;
+            margin-bottom: 16px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .cro_cta_selected {
+            border: solid 2px #00697c !important;
+        }
+    }
+</style>
+
+<script>
+    ////POLLING FUNCTION////
+    //polling function config
+    var vt727_nodeCheck_pxFuncFired = 0
+    var vt727_nodeCheck_pxInterval = setInterval(vt727_nodeCheck_pxPollFunc, 100) //0.1 seconds * 20 = 2 seconds
+
+    //polling function
+    function vt727_nodeCheck_pxPollFunc() {
+        vt727_nodeCheck_pxFuncFired += 1
+
+        if (vt727_nodeCheck_pxFuncFired >= 20) {
+            //try 20 times, if not found, clear px func
+            clearInterval(vt727_nodeCheck_pxInterval);
+        }
+
+        if (document.body.nodeType === 1) {
+            //clear polling when found
+            clearInterval(vt727_nodeCheck_pxInterval)
+            //MUTATION OBSERVER
+            let vt727_observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    let vt727_oldValue = mutation.oldValue
+                    let vt727_newValue = mutation.target.textContent
+                    if (vt727_oldValue !== vt727_newValue) {
+                        //MATCH URL CONDITION
+                        if (window.location.href.indexOf('#phoneplan') > -1) {
+                            //CODE HERE
+                            if (document.querySelector('[data-selector="tenure-stepper"]')) {
+                                vt727ConfigCTAS()
+                                vt727_observer.disconnect()
+                            }
+                        } else {
+                            vt727_observer.disconnect()
+                        }
+                    }
+                })
+            })
+
+            vt727_observer.observe(document.body, {
+                //characterDataOldValue: true,
+                subtree: true,
+                childList: true,
+                //characterData: true,
+                attributes: true
+            })
+
+            //Reconnect mutation observer if user navigates back 
+            window.navigation.addEventListener("navigate", (event) => {
+                //start observing again
+                vt727_observer.observe(document.body, {
+                    //characterDataOldValue: true,
+                    subtree: true,
+                    childList: true,
+                    //characterData: true,
+                    attributes: true
+                })
+            })
+
+            //FUNCTIONS TO CALL
+            function vt727ConfigCTAS() {
+                //variables and funcs 
+                var vt727_originalTunerElem = document.querySelector('[data-selector="tenure-stepper"]')
+                //toggle cta state function 
+                //24 month
+                function update24MonthCTA() {
+                    var cro24MonthCTA = document.querySelector('.vt727_24_cta')
+                    var cro36MonthCTA = document.querySelector('.vt727_36_cta')
+                    if (cro36MonthCTA.classList.contains('cro_cta_selected')) {
+                        cro36MonthCTA.classList.remove('cro_cta_selected')
+                    }
+                    cro24MonthCTA.classList.add('cro_cta_selected')
+                }
+                //36 month
+                function update36MonthCTA() {
+                    var cro24MonthCTA = document.querySelector('.vt727_24_cta')
+                    var cro36MonthCTA = document.querySelector('.vt727_36_cta')
+                    if (cro24MonthCTA.classList.contains('cro_cta_selected')) {
+                        cro24MonthCTA.classList.remove('cro_cta_selected')
+                    }
+                    cro36MonthCTA.classList.add('cro_cta_selected')
+                }
+                //insert CTA
+                var vt727CTAs = '<div class="vt727_cta_container">\
+                                <p class="config_header_cro">Choose your contract length</p>\
+                                <div class="vt727_ctas">\
+                                    <div class="vt727_24_cta" id="cro_24_cta">\
+                                        <p>24 months</p>\
+                                    </div>\
+                                    <div class="vt727_36_cta cro_cta_selected" id="cro_36_cta">\
+                                        <p>36 months</p>\
+                                    </div>\
+                                </div>\
+                            </div>'
+                var vt727TargetElement = document.querySelector('[data-selector="upfront-stepper"]').parentElement
+                var vt727_croCTAs = document.querySelector('.vt727_cta_container')
+                var vt727_xChangeBanner = document.querySelector('[class*="ConfiguratorTradeUpstyle__TradeUpWrapper-sc"]')
+                if (vt727_xChangeBanner) {
+                    if (!vt727_croCTAs) {
+                        var vt727TargetElement = document.querySelector('[data-selector="tenure-stepper"]')
+                        vt727TargetElement.insertAdjacentHTML('beforeBegin', vt727CTAs)
+                    }
+                } else {
+                    if (!vt727_croCTAs) {
+                        vt727TargetElement.insertAdjacentHTML('beforeBegin', vt727CTAs)
+                    }
+                }
+                //check for Xchange banner
+                if (vt727_xChangeBanner && vt727_croCTAs) {
+                    vt727_croCTAs.insertAdjacentElement('afterEnd', vt727_xChangeBanner)
+                    vt727_xChangeBanner.classList.add('vt727-xchangeStyles')
+                    vt727_croCTAs.parentElement.parentElement.parentElement.parentElement.classList.add('cro-padding-bottom')
+                    vt727_croCTAs.parentElement.parentElement.parentElement.classList.add('cro-border-adjust')
+                    vt727_croCTAs.parentElement.parentElement.classList.add('cro-padding-adjust')
+                    vt727_croCTAs.querySelector('.config_header_cro').classList.add('vt727-hide-element')
+                    //default to 36 months 
+                    //hide price while price changes
+                    var vt727_contractPrice_default = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
+                    vt727_contractPrice_default.classList.add('vt727-hide-element-opc')
+                    //toggle selected class
+                    update36MonthCTA()
+                    //polling function config
+                    var vt727_pxInterval_36Month_default = setInterval(vt727_pxPollFunc_36Month_default, 10);
+                    //polling function
+                    function vt727_pxPollFunc_36Month_default() {
+                        var vt727_tunerValue = vt727_originalTunerElem.querySelector('[data-component-name="Heading"]')
+                        if (!vt727_tunerValue.innerHTML.includes('36')) {
+                            var vt727_originalPlusCTA = document.querySelector('[aria-label="plus contract length"]')
+                            vt727_originalPlusCTA.click()
+                        } else {
+                            //clear polling when on 36
+                            clearInterval(vt727_pxInterval_36Month_default);
+                            //show price again 
+                            var vt727_contractPrice = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
+                            vt727_contractPrice.classList.remove('vt727-hide-element-opc')
+                        }
+                    }
+                } else if (!vt727_xChangeBanner && vt727_croCTAs) {
+                    //default to 36 months 
+                    //hide price while price changes
+                    var vt727_contractPrice_default = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
+                    vt727_contractPrice_default.classList.add('vt727-hide-element-opc')
+                    //toggle selected class
+                    update36MonthCTA()
+                    //polling function config
+                    var vt727_pxInterval_36Month_default = setInterval(vt727_pxPollFunc_36Month_default, 10);
+                    //polling function
+                    function vt727_pxPollFunc_36Month_default() {
+                        var vt727_tunerValue = vt727_originalTunerElem.querySelector('[data-component-name="Heading"]')
+                        if (!vt727_tunerValue.innerHTML.includes('36')) {
+                            var vt727_originalPlusCTA = document.querySelector('[aria-label="plus contract length"]')
+                            vt727_originalPlusCTA.click()
+                        } else {
+                            //clear polling when on 36
+                            clearInterval(vt727_pxInterval_36Month_default);
+                            //show price again 
+                            var vt727_contractPrice = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
+                            vt727_contractPrice.classList.remove('vt727-hide-element-opc')
+                        }
+                    }
+                }
+                //CTA functionality 
+                //hide element
+                vt727_originalTunerElem.classList.add('vt727-hide-element')
+                //click fcuntions 
+                ////BODY CLICK/////
+                document.body.addEventListener('click', function (event) {
+                    //24 month function 
+                    if (event.target.closest('[id="cro_24_cta"]')) {
+                        // //tracking
+                        // if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
+                        //     utag.vfuk_data.event_action = "button";
+                        //     utag.vfuk_data.event_label = "phone plan>24 months";
+                        //     utag.link(utag.vfuk_data);
+                        // }
+                        //hide price while price changes
+                        var vt727_contractPrice = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
+                        vt727_contractPrice.classList.add('vt727-hide-element-opc')
+                        //toggle selected class
+                        update24MonthCTA()
+                        //polling function config
+                        var vt727_pxInterval_24Month = setInterval(vt727_pxPollFunc_24Month, 10);
+                        //polling function
+                        function vt727_pxPollFunc_24Month() {
+                            var vt727_tunerValue = vt727_originalTunerElem.querySelector('[data-component-name="Heading"]')
+                            if (!vt727_tunerValue.innerHTML.includes('24') && document.querySelector('.vt727_24_cta') && document.querySelector('.vt727_24_cta').classList.contains('cro_cta_selected')) {
+                                var vt727_originalMinusCTA = document.querySelector('[aria-label="minus contract length"]')
+                                vt727_originalMinusCTA.click()
+                            } else {
+                                //clear polling when on 24
+                                clearInterval(vt727_pxInterval_24Month);
+                                //show price again 
+                                var vt727_contractPrice = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
+                                vt727_contractPrice.classList.remove('vt727-hide-element-opc')
+                            }
+                        }
+                    }
+                    //36 month function 
+                    if (event.target.closest('[id="cro_36_cta"]')) {
+                        // //tracking
+                        // if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
+                        //     utag.vfuk_data.event_action = "button";
+                        //     utag.vfuk_data.event_label = "phone plan>36 months";
+                        //     utag.link(utag.vfuk_data);
+                        // }
+                        //hide price while price changes
+                        var vt727_contractPrice = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
+                        vt727_contractPrice.classList.add('vt727-hide-element-opc')
+                        //toggle selected class
+                        update36MonthCTA()
+                        //polling function config
+                        var vt727_pxInterval_36Month = setInterval(vt727_pxPollFunc_36Month, 10);
+                        //polling function
+                        function vt727_pxPollFunc_36Month() {
+                            var vt727_tunerValue = vt727_originalTunerElem.querySelector('[data-component-name="Heading"]')
+                            if (!vt727_tunerValue.innerHTML.includes('36') && document.querySelector('.vt727_36_cta') && document.querySelector('.vt727_36_cta').classList.contains('cro_cta_selected')) {
+                                var vt727_originalPlusCTA = document.querySelector('[aria-label="plus contract length"]')
+                                vt727_originalPlusCTA.click()
+                            } else {
+                                //clear polling when on 36
+                                clearInterval(vt727_pxInterval_36Month);
+                                //show price again 
+                                var vt727_contractPrice = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
+                                vt727_contractPrice.classList.remove('vt727-hide-element-opc')
+                            }
+                        }
+                    }
+                })
+            }
+        }
+    }
+</script>
+
+https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts?at_preview_token=DKbkwvDZln76k63f4RhQ54Zx98_3aZ3O8LES7mEJyKM&at_preview_index=1_2&at_preview_listed_activities_only=true

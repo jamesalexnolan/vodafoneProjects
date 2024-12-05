@@ -1,0 +1,123 @@
+<style>
+    /*CTA styles*/
+    .y77vt693 {
+        width: 250px;
+    }
+
+    .k77vt693 {
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        text-align: center;
+        position: relative;
+        transition: 0.4s;
+        line-height: 12px;
+        width: 100%;
+        height: 44px;
+        min-width: 152px;
+        font-weight: 400;
+        color: rgb(25, 23, 20);
+        background: rgb(255, 255, 255);
+        border-radius: 0px;
+        padding: 12px 20px;
+        border: 1px solid transparent;
+        text-decoration: none;
+    }
+
+    /*mobile styles*/
+    @media only screen and (max-width: 800px) {
+        .y77vt693 {
+            width: revert;
+        }
+    }
+</style>
+<script>
+    ////POLLING FUNCTION////
+    //polling function config
+    var vtxxx_nodeCheck_pxFuncFired = 0
+    var vtxxx_nodeCheck_pxInterval = setInterval(vtxxx_nodeCheck_pxPollFunc, 100) //0.1 seconds * 20 = 2 seconds
+
+    //polling function
+    function vtxxx_nodeCheck_pxPollFunc() {
+        vtxxx_nodeCheck_pxFuncFired += 1
+
+        if (vtxxx_nodeCheck_pxFuncFired >= 20) {
+            //try 20 times, if not found, clear px func
+            clearInterval(vtxxx_nodeCheck_pxInterval);
+        }
+
+        if (document.body.nodeType === 1) {
+            //clear polling when found
+            clearInterval(vtxxx_nodeCheck_pxInterval)
+            //MUTATION OBSERVER
+            let vtxxx_observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    let vtxxx_oldValue = mutation.oldValue
+                    let vtxxx_newValue = mutation.target.textContent
+                    if (vtxxx_oldValue !== vtxxx_newValue) {
+                        //MATCH URL CONDITION
+                        if (window.location.href.indexOf('sim-only-plans') > -1) {
+                            //CODE HERE
+                            var croCTAs = document.querySelector('.j77vt693')
+                            if (!croCTAs) {
+                                seePlanDetailsInteraction()
+                            } else {
+                                vtxxx_observer.disconnect()
+                                CTAClickFunc()
+                            }
+                        } else {
+                            vtxxx_observer.disconnect()
+                        }
+                    }
+                })
+            })
+
+            vtxxx_observer.observe(document.body, {
+                //characterDataOldValue: true,
+                subtree: true,
+                childList: true,
+                //characterData: true,
+                attributes: true
+            })
+
+            //Reconnect mutation observer if user navigates back 
+            window.navigation.addEventListener("navigate", (event) => {
+                //start observing again
+                vtxxx_observer.observe(document.body, {
+                    //characterDataOldValue: true,
+                    subtree: true,
+                    childList: true,
+                    //characterData: true,
+                    attributes: true
+                })
+            })
+        }
+
+        function seePlanDetailsInteraction() {
+            //replace CTAs
+            var originalCTAs_CRO = document.querySelectorAll('[aria-label="Choose this plan"]')
+            var croCTAs = document.querySelectorAll('.j77vt693')
+            var CROCTAs = '<div class="j77vt693 x77vt693"> <p class="k77vt693">Choose this plan</p></div>'
+            for (var i = 0; i < originalCTAs_CRO.length; i++) {
+                originalCTAs_CRO[i].insertAdjacentHTML('afterEnd', CROCTAs)
+                originalCTAs_CRO[i].remove()
+            }
+        }
+
+        function CTAClickFunc() {
+            var croCTAs = document.querySelectorAll('.j77vt693')
+            //Click function
+            croCTAs.forEach(function (croCta) {
+                if (!croCta.dataset.hasListener) {
+                    croCta.addEventListener('click', function () {
+                        var seePlanDetailsCTA = croCta.closest('[data-component-name="SimpleGrid"]').querySelector('[data-component-name="LinkWithIcon"]')
+                        seePlanDetailsCTA.click()
+                    })
+                }
+                croCta.dataset.hasListener = "true"
+            })
+        }
+    }
+</script>

@@ -1,0 +1,201 @@
+<style>
+    .cro-timer {
+        display: flex;
+        justify-content: center;
+    }
+
+    .countdown-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: min-content;
+        bottom: 20px;
+        color: white;
+    }
+
+    .countdown-section {
+        padding: 5px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        background: black
+    }
+
+    .countdown-section>h4 {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        font-size: large;
+        font-weight: bold;
+        margin: 0 0 2px 0;
+    }
+
+    .timer {
+        display: flex;
+        justify-content: center;
+    }
+
+    .countdown-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 5px 0 5px;
+    }
+
+    .countdown-item>h5 {
+        margin: 2px;
+        color: black;
+        padding: 7px 9px;
+        border-radius: 6px;
+        font-weight: bolder;
+        font-size: x-large;
+        background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(255, 255, 255, 1) 0%, rgb(175 175 175) 100%);
+    }
+
+    .countdown-item>p {
+        margin: 0;
+    }
+
+    .hide_element {
+        display: none;
+    }
+
+    /*mobile*/
+    @media only screen and (max-width: 970px) {
+        .countdown-item>h5 {
+            padding: 2px 9px;
+            font-size: large;
+        }
+
+        .countdown-item>p {
+            font-size: 13px;
+        }
+
+        .countdown-section>h4 {
+            font-size: large;
+        }
+
+        .timer {
+            margin-top: 3px;
+        }
+
+        .countdown-section {
+            padding: 8px 0 8px 0;
+        }
+    }
+</style>
+
+<script>
+    ////MUTATION OBSERVER - BODY////
+    let vtxxx_observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            let vtxxx_oldValue = mutation.oldValue;
+            let vtxxx_newValue = mutation.target.textContent;
+            if (vtxxx_oldValue !== vtxxx_newValue) {
+                if (window.location.href.indexOf('#add-ons') > -1 || window.location.href.indexOf('#airtimeplans') > -1 || window.location.href.indexOf('#phoneplan') > -1) {
+                    if (document.querySelector('.cro-timer') && !document.querySelector('.cro-timer').classList.contains('hide_element')) {
+                        document.querySelector('.cro-timer').classList.add('hide_element')
+                    }
+                } else {
+                    if (document.querySelectorAll('[class*="Containerstyle__ContainerContent-sc"]')[1] && !document.querySelector('.cro-timer')) {
+                        //ACTIONS HERE 
+                        croTimer()
+                    }
+
+                    if (document.querySelector('.cro-timer') && document.querySelector('.cro-timer').classList.contains('hide_element')) {
+                        document.querySelector('.cro-timer').classList.remove('hide_element')
+                    }
+                }
+            }
+        });
+    });
+
+    vtxxx_observer.observe(document.body, {
+        //characterDataOldValue: true,
+        subtree: true,
+        childList: true,
+        //characterData: true
+        attributes: true
+    });
+
+    //insert timer
+    function croTimer() {
+        document.querySelectorAll('[class*="Containerstyle__ContainerContent-sc"]')[1].insertAdjacentHTML('afterEnd', '\
+            <div class="cro-timer">\
+                <div class="countdown-container">\
+                    <div class="countdown-section">\
+                            <h4></h4>\
+                        <div class="timer" id="countdown">\
+                            <div class="countdown-item" id="countdown-days">\
+                                <h5></h5>\
+                                <p>days</p>\
+                            </div>\
+                            <div class="countdown-item" id="countdown-hours">\
+                                <h5></h5>\
+                                <p>hours</p>\
+                            </div>\
+                            <div class="countdown-item"id="countdown-minutes">\
+                                <h5></h5>\
+                                <p>mins</p>\
+                            </div>\
+                            <div class="countdown-item" id="countdown-seconds">\
+                                <h5></h5>\
+                                <p>secs</p>\
+                            </div>\
+                        </div>\
+                    </div>\
+                </div>\
+            </div>\
+            ')
+        //timer functionality 
+        function updateCountdown() {
+            const targetDate = new Date('July 25, 2024 22:00:00').getTime()
+            const now = new Date().getTime()
+            const difference = targetDate - now
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+            document.getElementById('countdown-days').querySelector('h5').innerHTML = (days < 10 ? '0' : '') + days
+            document.getElementById('countdown-hours').querySelector('h5').innerHTML = (hours < 10 ? '0' : '') + hours
+            document.getElementById('countdown-minutes').querySelector('h5').innerHTML = (minutes < 10 ? '0' : '') + minutes
+            document.getElementById('countdown-seconds').querySelector('h5').innerHTML = (seconds < 10 ? '0' : '') + seconds
+        }
+
+        setInterval(updateCountdown, 1000)
+        updateCountdown()
+
+        //update title based on URL 
+        var urlIndex = [
+            'https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts/apple/iphone-15-pro',
+            'https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts/google/pixel-8',
+            'https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts/apple/iphone-15-plus', 
+            'https://www.vodafone.co.uk/mobile/phones/pay-monthly-contracts/samsung/galaxy-z-flip6'
+        ]
+
+        var titleIndex = [
+            'iPhone 15 Pro',
+            'Google Pixel 8',
+            'iPhone 15 Plus', 
+            'Samsung Galaxy Z Flip6'
+        ]
+
+        if (urlIndex.some(url => window.location.href.includes(url))) {
+            console.log('true')
+            var counterHeader = titleIndex.indexOf(urlIndex)
+            console.log(counterHeader)
+        }
+
+        var matchedIndex = urlIndex.findIndex(URL => window.location.href.includes(URL));
+        var counterTitle = document.querySelector('.countdown-section>h4')
+
+        if (matchedIndex !== -1) {
+            var counterHeader = titleIndex[matchedIndex];
+            console.log(counterHeader)
+            counterTitle.innerHTML = counterHeader + ' offer ends in'
+        }
+    }
+</script>
