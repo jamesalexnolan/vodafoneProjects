@@ -35,13 +35,6 @@ function vt654_nodeCheck_pxPollFunc() {
                         vt654Changes()
                         vt654header()
                         vt654_observer.disconnect()
-                        //click event to trigger polling function
-                        document.body.addEventListener('click', function (event) {
-                            //check if the clicked element is the addressCheckCTA or a child element of it
-                            if (window.location.href.indexOf('voxi.co.uk/acquisition/checkout') > -1) {
-                                vt654Changes()
-                            }
-                        });
                     } else {
                         vt654_observer.disconnect()
                     }
@@ -88,16 +81,16 @@ function vt654header() {
         }
 
         //target element 
-        var vt610_header = document.querySelector("#root > div > div:nth-child(3) > div > div:nth-child(3) > div > h1")
+        var vt610_header = document.querySelector("#root > div > div:nth-child(3) > div > div:nth-child(2) > div > h1")
 
         if (vt610_header) {
             //clear polling when found
             clearInterval(vt610_pxInterval);
             //hide header 
-            var vt654_header = document.querySelector("#root > div > div:nth-child(3) > div > div:nth-child(3) > div > h1")
+            var vt654_header = document.querySelector("#root > div > div:nth-child(3) > div > div:nth-child(2) > div > h1")
             if (vt654_header && !document.querySelector('.vt654_container')) {
                 vt654_header.style.display = 'none'
-                document.querySelector("#root > div > div:nth-child(3) > div > div:nth-child(3) > div > p").innerHTML = 'Fill in your details below.'
+                document.querySelector("#root > div > div:nth-child(3) > div > div:nth-child(2) > div > p").innerHTML = 'Fill in your details below.'
                 //insert secure checkout element
                 var vt654_banner = document.querySelector("#root > div > div:nth-child(3) > div > header > div > div > div")
                 //adjust logo
@@ -111,45 +104,49 @@ function vt654header() {
 }
 
 function vt654Changes() {
-    ////POLLING FUNCTION////
-    //polling function config
-    var vt654_pxFuncFired = 0;
-    var vt654_pxInterval = setInterval(vt654_pxPollFunc, 100);
+    ////MUTATION OBSERVER - PARENT ELEMENT////
+    //mutation observer 
+    const contentObserver = new MutationObserver((mutationsList, contentObserver) => {
+        //check for mutations
+        for (const mutation of mutationsList) {
+            if (window.location.href.indexOf('voxi.co.uk/acquisition/checkout') > -1) {
+                if (mutation.target.matches('[data-testid="step-content"]') || mutation.target.matches('[data-testid="step"]')) {
+                    //CHANGES HERE
+                    var vt654_headers = document.querySelectorAll('[data-component-name="Heading"]')
 
-    //polling function
-    function vt654_pxPollFunc() {
-        vt654_pxFuncFired += 1;
+                    for (var i = 0; i < vt654_headers.length; i++) {
+                        var stepContainer = vt654_headers[i].parentElement.parentElement.parentElement.parentElement
 
-        if (vt654_pxFuncFired >= 20) {
-            //try 20 times, if not found clear px func
-            clearInterval(vt654_pxInterval);
-        }
+                        if (!vt654_headers[i].parentElement.parentElement.querySelector('[title*="completed"]')) {
+                            vt654_headers[i].style.color = 'rgba(255,255,255, 0.3)'
+                            if (getComputedStyle(stepContainer).borderTopStyle === 'solid') {
+                                stepContainer.style.borderTop = '1px solid rgba(255,255,255, 0.3)'
+                            }
+                        } else {
+                            vt654_headers[i].style.color = 'white'
+                        }
 
-        //vt654_target element 
-        var vt654_target = document.querySelectorAll('[data-component-name="Heading"]').length > 10
-
-        if (vt654_target) {
-            //ACTIONS HERE 
-            //changes here 
-            //update headers
-            var vt654_headers = document.querySelectorAll('[data-component-name="Heading"]')
-
-            for (var i = 0; i < vt654_headers.length; i++) {
-                if (!vt654_headers[i].parentElement.parentElement.querySelector('[title*="completed"]')) {
-                    vt654_headers[i].style.color = 'rgba(255,255,255, 0.3)'
-                    vt654_headers[i].parentElement.parentElement.parentElement.parentElement.style.borderTop = '1px solid rgba(255,255,255, 0.3)'
-                } else {
-                    vt654_headers[i].style.color = 'white'
+                        if (stepContainer.offsetHeight > 100) {
+                            vt654_headers[i].style.color = 'white'
+                            if (getComputedStyle(stepContainer).borderTopStyle === 'solid') {
+                                //stepContainer.style.borderTop = '1px solid rgba(255,255,255, 0.3)'
+                                stepContainer.style.borderTop = '1px solid white'
+                            }
+                        }
+                    }
                 }
-
-                if (vt654_headers[i].parentElement.parentElement.parentElement.parentElement.offsetHeight > 100) {
-                    vt654_headers[i].style.color = 'white'
-                    vt654_headers[i].parentElement.parentElement.parentElement.parentElement.style.borderTop = '1px solid rgba(255,255,255, 0.3)'
-                }
+            } else {
+                contentObserver.disconnect()
             }
-
-            //clear polling when found
-            clearInterval(vt654_pxInterval);
         }
-    }
+    });
+
+    //define the configuration for the MutationObserver
+    const contentObserverConfig = {
+        childList: true,
+        subtree: true,
+    };
+
+    //start observing changes
+    contentObserver.observe(document.body, contentObserverConfig);
 }

@@ -61,13 +61,17 @@
                                 }
                             }
                         } else {
+                            var vt693PopUpInserted = document.querySelector('.vt693_pop-up_cont')
+                            if (vt693PopUpInserted) {
+                                vt693PopUpInserted.remove()
+                            }
                             vt693_observer.disconnect()
                             vt693SimOnlyStyles.innerHTML = ''
                             vt693CheckoutStyles.innerHTML = ''
                         }
                     }
-                });
-            });
+                })
+            })
 
             vt693_observer.observe(document.body, {
                 //characterDataOldValue: true,
@@ -141,7 +145,7 @@
                     //tracking
                     //button click
                     if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
-                        utag.vfuk_data.event_name = "cart_add";
+                        u
                         utag.vfuk_data.event_action = "button";
                         utag.vfuk_data.event_label = "choose this plan>20gb";
                         utag.vfuk_data.event_category = "in_page";

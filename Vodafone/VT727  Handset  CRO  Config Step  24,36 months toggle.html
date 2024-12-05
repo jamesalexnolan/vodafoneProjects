@@ -277,6 +277,12 @@
                 document.body.addEventListener('click', function (event) {
                     //24 month function 
                     if (event.target.closest('[id="cro_24_cta"]')) {
+                        // //tracking
+                        // if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
+                        //     utag.vfuk_data.event_action = "button";
+                        //     utag.vfuk_data.event_label = "phone plan>24 months";
+                        //     utag.link(utag.vfuk_data);
+                        // }
                         //hide price while price changes
                         var vt727_contractPrice = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
                         vt727_contractPrice.classList.add('vt727-hide-element-opc')
@@ -301,6 +307,12 @@
                     }
                     //36 month function 
                     if (event.target.closest('[id="cro_36_cta"]')) {
+                        // //tracking
+                        // if (typeof utag !== 'undefined' && typeof utag.vfuk_data !== 'undefined') {
+                        //     utag.vfuk_data.event_action = "button";
+                        //     utag.vfuk_data.event_label = "phone plan>36 months";
+                        //     utag.link(utag.vfuk_data);
+                        // }
                         //hide price while price changes
                         var vt727_contractPrice = document.querySelector('[class*="ConfiguratorTotalCoststyle__PriceContainer"]').querySelector('h2')
                         vt727_contractPrice.classList.add('vt727-hide-element-opc')

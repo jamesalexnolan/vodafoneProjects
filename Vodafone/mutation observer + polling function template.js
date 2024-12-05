@@ -61,14 +61,21 @@ function vtxxx_pxPollFunc() {
     }
 }
 
+////BODY CLICK/////
+document.body.addEventListener('click', function (event) {
+    if (event.target.closest('[]')) {
+        //RUN FUNCTION
+    }
+})
 
 /////VOXI TEMPLATE/////
+/*because we have to run these tests site wide, I've put the below template together to account for that*/
 //*1 - polling function to wait for body to return true for node (issue only happens on first instance)
 //*2 - once true, mutation observer applied
 //*3 - Within mutation observer, we use URL conditions for both applying CSS and JS
-///////NOTE - CSS WILL NEED AN ID TAG ADDED i.e. <style id="vtxxx-style">
+/*NOTE - CSS WILL NEED AN ID TAG ADDED i.e. <style id="vtxxx-style">*/
 //*4 - if url conditions not met, CSS and JS not applied, MO is disconnected else MO fires and CSS is applied
-//*5 - using event listener "navigate" we are able to fire the mutation observer again 
+//*5 - using event listener "navigate" we are able to fire the mutation observer again as someone moves around the site
 
 ////POLLING FUNCTION////
 //polling function config
@@ -93,18 +100,17 @@ function vtxxx_nodeCheck_pxPollFunc() {
                 let vtxxx_oldValue = mutation.oldValue;
                 let vtxxx_newValue = mutation.target.textContent;
                 if (vtxxx_oldValue !== vtxxx_newValue) {
-                    //CSS URL CONDITION
-                    if (document.location.pathname === 'SOMETHING') { 
-                        document.querySelector('[id="vtxxx-style"]').innerHTML = ''
-                    } else if (window.location.href.indexOf('SOMETHING') > -1) {
-                        document.querySelector('[id="vtxxx-style"]').innerHTML = '/*CSS HERE*/'
-                    }
-
                     //MATCH URL CONDITION
                     if (window.location.href.indexOf('SOMETHING') > -1) {
+                        //CSS
+                        document.querySelector('[id="vtxxx-style"]').innerHTML = '/*CSS HERE*/'
                         //CODE HERE
+                        exampleFunc()
                     } else {
+                        //DISCONNECT MO
                         vtxxx_observer.disconnect()
+                        //REMOVE CSS
+                        document.querySelector('[id="vtxxx-style"]').innerHTML = ''
                     }
                 }
             });
