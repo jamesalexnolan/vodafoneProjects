@@ -190,7 +190,17 @@ function vtxxx_nodeCheck_pxPollFunc() {
                 //characterData: true,
                 attributes: true
             })
+
+            // //stop MO after 2 seconds
+            // setTimeout(() => {
+            //     vt728_observer.disconnect()
+            // }, 2000);
         })
+
+        // //stop MO after 2 seconds
+        // setTimeout(() => {
+        //     vtxxx_observer.disconnect()
+        // }, 2000);
     }
 }
 

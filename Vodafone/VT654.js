@@ -78,6 +78,7 @@ function vt654header() {
         if (vt610_pxFuncFired >= 20) {
             //try 20 times, if not found clear px func
             clearInterval(vt610_pxInterval);
+            console.log('not fired')
         }
 
         //target element 
@@ -110,10 +111,10 @@ function vt654Changes() {
         //check for mutations
         for (const mutation of mutationsList) {
             if (window.location.href.indexOf('voxi.co.uk/acquisition/checkout') > -1) {
-                if (mutation.target.matches('[data-testid="step-content"]') || mutation.target.matches('[data-testid="step"]')) {
+                var vt654_headers = document.querySelectorAll('[data-component-name="Heading"]')
+                var vt654_spinner = document.querySelector('[data-component-name="LoadingSpinner"]')
+                if (mutation.target.matches('[data-testid="step-content"]') || mutation.target.matches('[data-testid="step"]') && vt654_headers.length > 7 && !vt654_spinner) {
                     //CHANGES HERE
-                    var vt654_headers = document.querySelectorAll('[data-component-name="Heading"]')
-
                     for (var i = 0; i < vt654_headers.length; i++) {
                         var stepContainer = vt654_headers[i].parentElement.parentElement.parentElement.parentElement
 
