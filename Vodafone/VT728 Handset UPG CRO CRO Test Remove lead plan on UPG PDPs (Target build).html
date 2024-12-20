@@ -21,6 +21,7 @@
                     let vt728_oldValue = mutation.oldValue
                     let vt728_newValue = mutation.target.textContent
                     if (vt728_oldValue !== vt728_newValue) {
+                        //if (document.querySelector('[data-customer-type="upgrade Consumer"]')) {
                         var windowLocation = window.location
                         if (windowLocation.pathname === '/mobile/phones/pay-monthly-contracts' || windowLocation.href.indexOf('#airtimeplans') > -1 || windowLocation.href.indexOf('#phoneplan') > -1 || windowLocation.href.indexOf('#add-ons') > -1) {
                             vt728_observer.disconnect()
@@ -32,6 +33,7 @@
                                 leadPlanContainer_p.remove()
                             }
                         }
+                        //}
                     }
                 })
             })

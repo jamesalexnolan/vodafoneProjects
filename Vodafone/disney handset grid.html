@@ -6,6 +6,7 @@
         top: 34px;
         background: #FFFF;
         border-radius: 5px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 8px;
     }
 
     .cro-err-box_fix {
@@ -165,10 +166,11 @@
 
             function addContentGridPanel() {
                 //CHANGES HERE
-                var grid = document.querySelectorAll('[data-component-name="SimpleGrid"]')[3]
+                var grid = document.querySelectorAll('[data-component-name="SimpleGrid"]')[2]
                 var target = grid.childNodes[4]
-                var targetClasses = grid.childNodes[4].classList.toString()
-                var newDiv = '<div class="' + targetClasses + '">\
+                if (target) {
+                    var targetClasses = grid.childNodes[4].classList.toString()
+                    var newDiv = '<div class="' + targetClasses + '">\
                                             <div class="CRO-disneyCont">\
                                                 <div class="cro-content_container">\
                                                     <div class="cro-disney-card-logo">\
@@ -220,12 +222,13 @@
                                     </div>\
                                     <div class="cro-content-card">\
                                                 <h3>3 months of Disney+ on us</h3>\
-                                                <p>Claim Disney+ Standard (with ads) when you buy a phone or a SIM only plan with us. After you buy, look out for a text from us with details on how to claim. £4.99 from month 4.</p>\
+                                                <p>Claim Disney+ Standard with ads when you buy a phone or a SIM only plan with us. After you buy, look out for a text from us with details on how to claim. £4.99 from month 4.</p>\
                                                 </div>\
                                             </div>\
                                             </div>\
                                         </div>'
-                target.insertAdjacentHTML('beforebegin', newDiv)
+                    target.insertAdjacentHTML('beforebegin', newDiv)
+                }
             }
 
             function changeBannerIcon() {
